@@ -207,7 +207,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
           />
         </a>
         <nav class="nav" aria-label="Primary navigation">
-          <a href="#dictionary">Dictionary</a>
+          <a href="/dictionary/">Dictionary</a>
           <a href="#learn">Learn</a>
           <a href="#guides">Guides</a>
           <a href="#examples">Prompt Examples</a>
@@ -234,7 +234,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
             <div id="searchResults" aria-live="polite"></div>
 
             <div class="hero-links">
-              <a href="#az">Browse the dictionary A–Z →</a>
+              <a href="/dictionary/">Browse the prompt dictionary A–Z →</a>
               <a href="#learn">Start with Prompting 101 →</a>
             </div>
           </div>
@@ -252,7 +252,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
         <div class="wrap az-inner">
           <div class="az-label">Dictionary A–Z</div>
           <div class="letters" aria-label="Browse dictionary by letter">
-            {letters.map((letter) => <a href="#dictionary" aria-label={`Browse terms beginning with ${letter}`}>{letter}</a>)}
+            {letters.map((letter) => <a href={`/dictionary/#${letter}`} aria-label={`Browse prompts beginning with ${letter}`}>{letter}</a>)}
           </div>
         </div>
       </div>
@@ -412,7 +412,7 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
           <span>Promptendium</span>
         </div>
         <div class="footer-links">
-          <a href="#dictionary">Dictionary</a>
+          <a href="/dictionary/">Dictionary</a>
           <a href="#learn">Learn</a>
           <a href="#guides">Guides</a>
           <a href="#about">About</a>
