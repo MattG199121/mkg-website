@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/animation-slow.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -122,11 +123,11 @@ const favicon = `${base}favicon.png`;
             if (charIndex === 0) {
               deleting = false;
               phraseIndex = (phraseIndex + 1) % phrases.length;
-              window.setTimeout(tick, 360);
+              window.setTimeout(tick, 520);
               return;
             }
 
-            window.setTimeout(tick, 24);
+            window.setTimeout(tick, 42);
             return;
           }
 
@@ -136,14 +137,14 @@ const favicon = `${base}favicon.png`;
 
           if (charIndex === nextPhrase.length) {
             deleting = true;
-            window.setTimeout(tick, 1700);
+            window.setTimeout(tick, 2500);
             return;
           }
 
-          window.setTimeout(tick, 42);
+          window.setTimeout(tick, 70);
         };
 
-        window.setTimeout(tick, 2200);
+        window.setTimeout(tick, 3000);
       })();
     </script>
   </body>
