@@ -35,6 +35,22 @@ async function walk(directory) {
       );
     }
 
+    if (extname(entry.name) === '.html') {
+      if (!updated.includes(`/${basePath}/viewport-flow.css`)) {
+        updated = updated.replace(
+          '</head>',
+          `  <link rel="stylesheet" href="/${basePath}/viewport-flow.css" />\n</head>`,
+        );
+      }
+
+      if (!updated.includes(`/${basePath}/viewport-flow.js`)) {
+        updated = updated.replace(
+          '</body>',
+          `  <script src="/${basePath}/viewport-flow.js" defer></script>\n</body>`,
+        );
+      }
+    }
+
     if (updated !== original) {
       await writeFile(filePath, updated, 'utf8');
     }
