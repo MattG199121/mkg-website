@@ -1,5 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://mattg199121.github.io',
+  base: '/mkg-website',
+  trailingSlash: 'always',
+});
