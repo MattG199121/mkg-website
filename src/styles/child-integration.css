@@ -74,7 +74,7 @@ html[data-audience="everyday"] .standard-site-shell .hero::after {
 }
 
 /* Child and Everyday are both mounted inside the same technical shell so the
- * homepage itself does not need separate duplicated control bars. */
+ * homepage itself does not need duplicated control bars. */
 .child-experience-shell > .child-experience,
 .child-experience-shell > .embedded-everyday-experience {
   display: none;
@@ -109,28 +109,32 @@ html[data-audience="everyday"] .child-experience-shell > .embedded-everyday-expe
   min-height: 0;
 }
 
-/* Match the same visual frame used by the original homepage: the selector sits
- * at the top-left of the frame and the main visual begins at the same height on
- * the right. */
+/* Use the same centred visual frame as the original homepage. This is the key
+ * integration rule: the right-hand experience begins level with the shared
+ * selectors instead of beginning at the top of the content viewport. */
 .child-experience-shell .child-experience {
   padding: 0 clamp(24px, 3.2vw, 48px);
 }
 
 .child-experience-shell .child-layout {
+  position: relative;
+  top: 50%;
   width: min(100%, 1480px);
   height: min(66vh, 610px);
   min-height: 390px;
-  margin: auto;
-  align-self: center;
+  margin: 0 auto;
+  transform: translateY(-50%);
 }
 
 .child-experience-shell .child-lab {
   height: 100%;
 }
 
+/* The two shared selector rows occupy the top of the left column. Keep the
+ * supplied child artwork and controls beneath that reserved area. */
 .child-experience-shell .child-main {
   position: relative;
-  top: clamp(82px, 10vh, 108px);
+  top: clamp(92px, 11vh, 118px);
 }
 
 .child-experience-shell .everyday-experience {
@@ -156,16 +160,19 @@ html[data-audience="everyday"] .child-experience-shell > .embedded-everyday-expe
   display: none !important;
 }
 
-@media (max-width: 1120px) {
-  .child-experience-shell .child-layout,
-  .child-experience-shell .everyday-layout {
+@media (max-width: 1120px) and (min-width: 821px) {
+  .child-experience-shell .child-layout {
     height: min(67vh, 560px);
+    min-height: 390px;
+  }
+
+  .child-experience-shell .everyday-layout {
     flex-basis: min(67vh, 560px);
     min-height: 390px;
   }
 
   .child-experience-shell .child-main {
-    top: 76px;
+    top: 88px;
   }
 
   .child-experience-shell .everyday-copy {
@@ -183,7 +190,15 @@ html[data-audience="everyday"] .child-experience-shell > .embedded-everyday-expe
     padding-inline: 16px;
   }
 
-  .child-experience-shell .child-layout,
+  .child-experience-shell .child-layout {
+    position: static;
+    width: 100%;
+    height: calc(100% - 118px);
+    min-height: 0;
+    margin: 118px 0 0;
+    transform: none;
+  }
+
   .child-experience-shell .everyday-layout {
     width: 100%;
     height: calc(100% - 118px);
@@ -210,19 +225,22 @@ html[data-audience="everyday"] .child-experience-shell > .embedded-everyday-expe
 }
 
 @media (max-height: 680px) and (min-width: 821px) {
-  .child-experience-shell .child-layout,
-  .child-experience-shell .everyday-layout {
+  .child-experience-shell .child-layout {
     height: min(65vh, 440px);
+    min-height: 300px;
+  }
+
+  .child-experience-shell .everyday-layout {
     flex-basis: min(65vh, 440px);
     min-height: 300px;
   }
 
   .child-experience-shell .child-main {
-    top: 48px;
+    top: 70px;
   }
 
   .child-experience-shell .everyday-copy {
-    padding-top: 56px;
+    padding-top: 64px;
   }
 }
 
