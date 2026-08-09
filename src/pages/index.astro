@@ -3,142 +3,90 @@ import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
-const mark = `${base}brand/promptendium-mark.webp`;
 const favicon = `${base}favicon.png`;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Promptendium — The AI Prompt Dictionary & Guide</title>
     <meta name="description" content="Find better AI prompts, understand why they work and learn how to write clearer prompts with Promptendium." />
     <meta name="theme-color" content="#F7F6F2" />
     <link rel="icon" type="image/png" href={favicon} />
   </head>
   <body>
-    <header class="site-header">
-      <div class="wrap header-inner">
-        <a class="brand" href={base} aria-label="Promptendium home">
-          <img src={logo} alt="Promptendium — The reference for better AI prompts." />
-        </a>
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="#dictionary">Dictionary</a>
-          <a href="#learn">Learn</a>
-          <a href="#generator">Prompt Generator</a>
-          <a class="nav-cta" href="#start">Start exploring</a>
-        </nav>
-      </div>
-    </header>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="wrap header-inner">
+          <a class="brand" href={base} aria-label="Promptendium home">
+            <img src={logo} alt="Promptendium — The reference for better AI prompts." />
+          </a>
+        </div>
+      </header>
 
-    <main>
-      <section class="screen hero" id="top">
-        <div class="wrap hero-grid">
-          <div>
-            <div class="eyebrow">Independent AI prompting reference</div>
-            <h1>The AI Prompt Dictionary &amp; Guide.</h1>
-            <p class="lede">Find useful prompts, understand the language behind AI prompting and learn how to get clearer results — without unnecessary jargon.</p>
-            <div class="hero-actions">
-              <a class="button primary" href="#dictionary">Explore the dictionary <span>→</span></a>
-              <a class="button secondary" href="#learn">Learn prompting</a>
+      <main class="home-screen">
+        <section class="hero" aria-labelledby="page-title">
+          <div class="wrap hero-grid">
+            <div class="hero-copy">
+              <div class="eyebrow">Independent AI prompting reference</div>
+              <h1 id="page-title">The AI Prompt Dictionary &amp; Guide.</h1>
+              <p class="lede">
+                Find useful prompts, understand the language behind AI prompting and learn how to get clearer results — without unnecessary jargon.
+              </p>
+
+              <div class="product-pills" aria-label="Promptendium products">
+                <span>Prompt Dictionary</span>
+                <span>Practical Guides</span>
+                <span>Prompt Generator</span>
+              </div>
+
+              <div class="hero-note">Clear explanations. Practical prompts. No hype.</div>
             </div>
-            <div class="hero-note">Clear explanations. Practical prompts. No hype.</div>
-          </div>
 
-          <div class="product-stage" aria-label="Promptendium product preview">
-            <div class="mock-window">
-              <div class="mock-top"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-              <div class="mock-content">
-                <div class="mock-label">Promptendium</div>
-                <div class="mock-title">Find the right prompt faster.</div>
-                <div class="mock-search"><span>Search prompts, guides and terms…</span><span class="mock-key">⌘ K</span></div>
-                <div class="mock-cards">
-                  <div class="mock-card dark"><strong>Prompt Dictionary</strong><span>Browse practical prompts by task, category or letter.</span><div class="mock-purple"></div></div>
-                  <div class="mock-card"><strong>Prompting Guides</strong><span>Learn the ideas that make prompts easier to write and improve.</span></div>
-                  <div class="mock-card"><strong>AI terminology</strong><span>Plain-English definitions for the terms you actually see.</span></div>
-                  <div class="mock-card"><strong>Prompt Generator</strong><span>A guided tool for building prompts around your task.</span></div>
+            <div class="product-stage" aria-label="Promptendium product preview">
+              <div class="mock-window">
+                <div class="mock-top" aria-hidden="true">
+                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+                </div>
+
+                <div class="mock-content">
+                  <div class="mock-label">Promptendium</div>
+                  <div class="mock-title">Find the right prompt faster.</div>
+
+                  <div class="mock-search">
+                    <span>Search prompts, guides and terms…</span>
+                    <span class="mock-key">⌘ K</span>
+                  </div>
+
+                  <div class="mock-cards">
+                    <div class="mock-card dark">
+                      <strong>Prompt Dictionary</strong>
+                      <span>Browse practical prompts by task, category or letter.</span>
+                      <div class="mock-purple"></div>
+                    </div>
+
+                    <div class="mock-card">
+                      <strong>Prompting Guides</strong>
+                      <span>Learn the ideas that make prompts easier to write and improve.</span>
+                    </div>
+
+                    <div class="mock-card">
+                      <strong>AI terminology</strong>
+                      <span>Plain-English definitions for the terms you actually see.</span>
+                    </div>
+
+                    <div class="mock-card">
+                      <strong>Prompt Generator</strong>
+                      <span>A guided tool for building prompts around your task.</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="screen" id="dictionary">
-        <div class="wrap section-grid">
-          <div class="section-copy">
-            <div class="kicker">Prompt Dictionary</div>
-            <h2>Browse prompts like a reference, not a feed.</h2>
-            <p class="lede">Start with the task you need to complete. Promptendium is designed to make useful prompts easy to find, understand and adapt.</p>
-          </div>
-          <div class="feature-stack">
-            <article class="feature-card"><div class="feature-icon">A–Z</div><div><h3>Dictionary-style browsing</h3><p>Move alphabetically or narrow down by category and task.</p></div><div class="feature-arrow">↗</div></article>
-            <article class="feature-card"><div class="feature-icon">◎</div><div><h3>Purpose before prompt</h3><p>Understand what each prompt is for before you copy anything.</p></div><div class="feature-arrow">↗</div></article>
-            <article class="feature-card"><div class="feature-icon">↺</div><div><h3>Built to customise</h3><p>Use placeholders, examples and practical notes to make prompts your own.</p></div><div class="feature-arrow">↗</div></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen dark-screen" id="learn">
-        <div class="wrap">
-          <div class="kicker">Learn prompting</div>
-          <h2>Understand what makes a prompt work.</h2>
-          <p class="lede">Promptendium explains the concepts in the order they become useful, from the basics through to more technical prompting techniques.</p>
-          <div class="learning-grid">
-            <article class="learning-card"><div class="learning-num">01 · Start here</div><h3>Prompting fundamentals</h3><p>Understand instructions, context, constraints and outputs without getting buried in terminology.</p></article>
-            <article class="learning-card"><div class="learning-num">02 · Improve</div><h3>Write clearer prompts</h3><p>Learn how to turn vague requests into instructions an AI model can follow reliably.</p></article>
-            <article class="learning-card"><div class="learning-num">03 · Go deeper</div><h3>Advanced techniques</h3><p>Explore structured prompting, examples, model behaviour and technical concepts when you need them.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen" id="generator">
-        <div class="wrap section-grid">
-          <div class="section-copy">
-            <div class="kicker">Prompt Generator</div>
-            <h2>From a plain-English task to a stronger prompt.</h2>
-            <p class="lede">The Promptendium Prompt Generator will guide users through Quick, Detailed and Custom modes while keeping the interface simple.</p>
-            <div class="hero-actions"><span class="button secondary">Coming later · 30-day trial planned</span></div>
-          </div>
-          <div class="generator-panel">
-            <div class="eyebrow">Product preview</div>
-            <div class="generator-demo">
-              <div class="demo-box"><span class="demo-chip">Your task</span><div class="demo-lines"><div class="demo-line"></div><div class="demo-line mid"></div><div class="demo-line short"></div></div></div>
-              <div class="demo-box output"><span class="demo-chip">Improved prompt</span><div class="demo-lines"><div class="demo-line"></div><div class="demo-line"></div><div class="demo-line mid"></div><div class="demo-line"></div><div class="demo-line short"></div></div></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen" id="why">
-        <div class="wrap">
-          <div class="kicker">Why Promptendium</div>
-          <h2>A reference people can actually use.</h2>
-          <p class="lede">The aim is simple: make AI prompting easier to understand without turning it into tricks, hype or technical theatre.</p>
-          <div class="principles">
-            <div class="principle"><strong>Practical first</strong><p>Every page should help someone complete a real task or understand a real concept.</p></div>
-            <div class="principle"><strong>Plain English</strong><p>Technical detail when it matters, straightforward explanations everywhere else.</p></div>
-            <div class="principle"><strong>Independent reference</strong><p>Designed around useful information rather than pushing one AI tool or platform.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="screen final" id="start">
-        <div class="wrap">
-          <div class="kicker">Promptendium</div>
-          <h2>Better prompts start with better understanding.</h2>
-          <p class="lede">The homepage is the first step. The dictionary, guides and generator will be added around this clean foundation.</p>
-          <div class="final-actions"><a class="button primary" href="#dictionary">Explore the concept</a><a class="button secondary" href="#top">Back to top</a></div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="wrap footer-inner">
-        <div class="footer-brand"><img src={mark} alt="" /><span>Promptendium</span></div>
-        <div class="footer-links"><a href="#dictionary">Dictionary</a><a href="#learn">Learn</a><a href="#generator">Generator</a></div>
-        <div>© 2026 Promptendium</div>
-      </div>
-    </footer>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
