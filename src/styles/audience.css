@@ -15,11 +15,34 @@
   align-items: center;
 }
 
+/*
+ * Desktop/tablet landscape layout:
+ * the left content column deliberately matches the visual height of
+ * the product preview so its first and last items share the same edges.
+ */
+.hero-copy {
+  height: min(66vh, 610px);
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.hero-copy h1 {
+  margin-block: 0;
+}
+
+.hero-copy .product-pills,
+.hero-copy .hero-note {
+  margin-top: 0;
+}
+
 .audience-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: clamp(24px, 4.2vh, 44px);
+  margin: 0;
 }
 
 .audience-label {
@@ -111,10 +134,16 @@ html[data-level="technical"] .eyebrow.level-copy[data-level="technical"] {
   }
 }
 
+@media (max-width: 1050px) and (min-width: 821px) {
+  .hero-copy {
+    height: min(67vh, 560px);
+    min-height: 390px;
+  }
+}
+
 @media (max-width: 900px) {
   .audience-row {
     gap: 10px;
-    margin-bottom: 26px;
   }
 
   .audience-label {
@@ -128,6 +157,36 @@ html[data-level="technical"] .eyebrow.level-copy[data-level="technical"] {
   }
 }
 
+/* Once the main layout stacks vertically, natural document spacing is clearer. */
+@media (max-width: 820px) {
+  .hero-copy {
+    height: auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .audience-row {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .hero-copy > .copy-slot {
+    margin-bottom: 14px;
+  }
+
+  .hero-copy h1 {
+    margin-bottom: 16px;
+  }
+
+  .hero-copy .product-pills {
+    margin-top: 16px;
+  }
+
+  .hero-copy .hero-note {
+    margin-top: 12px;
+  }
+}
+
 @media (max-width: 600px) {
   .brand img {
     width: 150px;
@@ -135,9 +194,9 @@ html[data-level="technical"] .eyebrow.level-copy[data-level="technical"] {
 
   .audience-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 7px;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
   }
 
   .audience-label {
@@ -145,7 +204,7 @@ html[data-level="technical"] .eyebrow.level-copy[data-level="technical"] {
   }
 
   .audience-switcher {
-    width: 100%;
+    width: min(100%, 440px);
     gap: 2px;
     padding: 3px;
   }
@@ -173,9 +232,41 @@ html[data-level="technical"] .eyebrow.level-copy[data-level="technical"] {
   }
 }
 
-@media (max-height: 680px) and (min-width: 601px) {
+@media (max-height: 680px) and (min-width: 821px) {
+  .hero-copy {
+    height: min(65vh, 440px);
+    min-height: 300px;
+  }
+}
+
+@media (max-height: 560px) {
+  .hero-copy {
+    height: auto;
+    min-height: 0;
+    display: block;
+    text-align: center;
+  }
+
   .audience-row {
-    margin-bottom: 18px;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .hero-copy > .copy-slot {
+    margin-bottom: 10px;
+  }
+
+  .hero-copy h1 {
+    margin-bottom: 12px;
+  }
+
+  .hero-copy .product-pills {
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .hero-copy .hero-note {
+    margin-top: 10px;
   }
 }
 
