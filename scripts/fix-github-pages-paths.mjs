@@ -19,10 +19,21 @@ async function walk(directory) {
     if (!textExtensions.has(extname(entry.name))) continue;
 
     const original = await readFile(filePath, 'utf8');
-    const updated = original.replace(
+    let updated = original.replace(
       /(["'])\/(?!\/|mkg-website(?:\/|["']))/g,
       `$1/${basePath}/`,
     );
+
+    if (
+      extname(entry.name) === '.html' &&
+      updated.includes('<nav class="nav"') &&
+      !updated.includes(`/${basePath}/generator/`)
+    ) {
+      updated = updated.replace(
+        /(<nav class="nav"[^>]*>)/,
+        `$1<a href="/${basePath}/generator/">Prompt Generator</a>`,
+      );
+    }
 
     if (updated !== original) {
       await writeFile(filePath, updated, 'utf8');
