@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/animation-slow.css';
 import '../styles/theme.css';
+import '../styles/audience.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -12,18 +13,22 @@ const favicon = `${base}favicon.png`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Promptendium — The AI Prompt Dictionary & Guide</title>
-    <meta name="description" content="Find better AI prompts, understand why they work and learn how to write clearer prompts with Promptendium." />
+    <title>Promptendium — Less guessing. Better prompting.</title>
+    <meta name="description" content="Practical AI prompts and guidance for children, everyday users and technical users." />
     <meta name="theme-color" content="#F7F6F2" id="themeColor" />
     <link rel="icon" type="image/png" href={favicon} />
     <script is:inline>
       (() => {
         try {
-          const saved = localStorage.getItem('promptendium-theme');
-          const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          const savedTheme = localStorage.getItem('promptendium-theme');
+          const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.dataset.theme = theme;
+
+          const savedLevel = localStorage.getItem('promptendium-level');
+          document.documentElement.dataset.level = ['children', 'everyday', 'technical'].includes(savedLevel) ? savedLevel : 'everyday';
         } catch {
           document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.level = 'everyday';
         }
       })();
     </script>
@@ -36,13 +41,27 @@ const favicon = `${base}favicon.png`;
             <img src={logo} alt="Promptendium — The reference for better AI prompts." />
           </a>
 
-          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-            <span class="theme-toggle-track" aria-hidden="true">
-              <span class="theme-toggle-sun">☀</span>
-              <span class="theme-toggle-moon">☾</span>
-            </span>
-            <span class="theme-toggle-thumb" aria-hidden="true"></span>
-          </button>
+          <div class="audience-switcher" role="group" aria-label="Choose your Promptendium level">
+            <button class="audience-option" type="button" data-audience-level="children" aria-pressed="false">
+              <span class="level-full">Children</span><span class="level-short">Kids</span>
+            </button>
+            <button class="audience-option" type="button" data-audience-level="everyday" aria-pressed="true">
+              <span class="level-full">Non-technical</span><span class="level-short">Everyday</span>
+            </button>
+            <button class="audience-option" type="button" data-audience-level="technical" aria-pressed="false">
+              <span class="level-full">Technical</span><span class="level-short">Tech</span>
+            </button>
+          </div>
+
+          <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+              <span class="theme-toggle-track" aria-hidden="true">
+                <span class="theme-toggle-sun">☀</span>
+                <span class="theme-toggle-moon">☾</span>
+              </span>
+              <span class="theme-toggle-thumb" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -50,11 +69,25 @@ const favicon = `${base}favicon.png`;
         <section class="hero" aria-labelledby="page-title">
           <div class="wrap hero-grid">
             <div class="hero-copy">
-              <div class="eyebrow entrance entrance-1">Independent AI prompting reference</div>
-              <h1 id="page-title" class="entrance entrance-2">The AI Prompt Dictionary &amp; Guide.</h1>
-              <p class="lede entrance entrance-3">
-                Find useful prompts, understand the language behind AI prompting and learn how to get clearer results — without unnecessary jargon.
-              </p>
+              <div class="copy-slot entrance entrance-1">
+                <div class="eyebrow level-copy" data-level="children">AI prompting made simple</div>
+                <div class="eyebrow level-copy" data-level="everyday">Practical AI prompting</div>
+                <div class="eyebrow level-copy" data-level="technical">Technical prompting reference</div>
+              </div>
+
+              <h1 id="page-title" class="entrance entrance-2">Less guessing.<br />Better prompting.</h1>
+
+              <div class="copy-slot entrance entrance-3">
+                <p class="lede level-copy" data-level="children">
+                  Simple prompts and easy explanations to help younger users get better results from AI.
+                </p>
+                <p class="lede level-copy" data-level="everyday">
+                  Everything you need to get more from AI — without the jargon.
+                </p>
+                <p class="lede level-copy" data-level="technical">
+                  Structured prompting, model behaviour and practical techniques for more controlled AI output.
+                </p>
+              </div>
 
               <div class="product-pills entrance entrance-4" aria-label="Promptendium products">
                 <span>Prompt Dictionary</span>
@@ -62,7 +95,11 @@ const favicon = `${base}favicon.png`;
                 <span>Prompt Generator</span>
               </div>
 
-              <div class="hero-note entrance entrance-5">Clear explanations. Practical prompts. No hype.</div>
+              <div class="copy-slot entrance entrance-5">
+                <div class="hero-note level-copy" data-level="children">Simple language. Clear examples. Easy to try.</div>
+                <div class="hero-note level-copy" data-level="everyday">Clear explanations. Practical prompts. No hype.</div>
+                <div class="hero-note level-copy" data-level="technical">Precise methods. Model-aware guidance. More control.</div>
+              </div>
             </div>
 
             <div class="product-stage entrance stage-entrance" aria-label="Promptendium product preview">
@@ -74,7 +111,9 @@ const favicon = `${base}favicon.png`;
 
                 <div class="mock-content">
                   <div class="mock-label">Promptendium</div>
-                  <div class="mock-title">Find the right prompt faster.</div>
+                  <div class="mock-title level-copy" data-level="children">AI prompts made easier.</div>
+                  <div class="mock-title level-copy" data-level="everyday">Find the right prompt faster.</div>
+                  <div class="mock-title level-copy" data-level="technical">Prompt with more control.</div>
 
                   <div class="mock-search" aria-label="Animated Promptendium search example">
                     <span class="mock-query"><span id="mockQuery">Search prompts, guides and terms…</span><span class="typing-cursor" aria-hidden="true"></span></span>
@@ -114,6 +153,46 @@ const favicon = `${base}favicon.png`;
     <script is:inline>
       (() => {
         const root = document.documentElement;
+        const buttons = Array.from(document.querySelectorAll('[data-audience-level]'));
+        const validLevels = ['children', 'everyday', 'technical'];
+
+        const applyLevel = (level, save = true, animate = true) => {
+          const nextLevel = validLevels.includes(level) ? level : 'everyday';
+          root.dataset.level = nextLevel;
+
+          buttons.forEach((button) => {
+            button.setAttribute('aria-pressed', String(button.dataset.audienceLevel === nextLevel));
+          });
+
+          if (save) {
+            try {
+              localStorage.setItem('promptendium-level', nextLevel);
+            } catch {}
+          }
+
+          if (animate) {
+            document.querySelectorAll(`.level-copy[data-level="${nextLevel}"]`).forEach((node) => {
+              node.classList.remove('audience-transition');
+              void node.offsetWidth;
+              node.classList.add('audience-transition');
+              window.setTimeout(() => node.classList.remove('audience-transition'), 700);
+            });
+          }
+
+          window.dispatchEvent(new CustomEvent('promptendium-level-change', { detail: { level: nextLevel } }));
+        };
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => applyLevel(button.dataset.audienceLevel));
+        });
+
+        applyLevel(root.dataset.level || 'everyday', false, false);
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
         const toggle = document.getElementById('themeToggle');
         const themeColor = document.getElementById('themeColor');
 
@@ -147,21 +226,36 @@ const favicon = `${base}favicon.png`;
         if (!query) return;
 
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const phrases = [
-          'Search prompts, guides and terms…',
-          'Write a professional follow-up email',
-          'Explain context windows simply',
-          'Create a project planning prompt'
-        ];
+        const phrasesByLevel = {
+          children: [
+            'Search simple prompts and guides…',
+            'Explain photosynthesis simply',
+            'Help me plan a school project',
+            'Create a quiz about volcanoes'
+          ],
+          everyday: [
+            'Search prompts, guides and terms…',
+            'Write a professional follow-up email',
+            'Explain context windows simply',
+            'Create a project planning prompt'
+          ],
+          technical: [
+            'Search advanced prompting techniques…',
+            'Design a structured JSON output prompt',
+            'Compare retrieval strategies for RAG',
+            'Create a constrained system prompt'
+          ]
+        };
 
-        if (reduceMotion) {
-          query.textContent = phrases[0];
-          return;
-        }
-
+        let timer = null;
         let phraseIndex = 0;
-        let charIndex = phrases[0].length;
+        let charIndex = 0;
         let deleting = true;
+        let phrases = phrasesByLevel.everyday;
+
+        const schedule = (fn, delay) => {
+          timer = window.setTimeout(fn, delay);
+        };
 
         const tick = () => {
           const phrase = phrases[phraseIndex];
@@ -173,11 +267,11 @@ const favicon = `${base}favicon.png`;
             if (charIndex === 0) {
               deleting = false;
               phraseIndex = (phraseIndex + 1) % phrases.length;
-              window.setTimeout(tick, 700);
+              schedule(tick, 700);
               return;
             }
 
-            window.setTimeout(tick, 58);
+            schedule(tick, 58);
             return;
           }
 
@@ -187,14 +281,29 @@ const favicon = `${base}favicon.png`;
 
           if (charIndex === nextPhrase.length) {
             deleting = true;
-            window.setTimeout(tick, 3400);
+            schedule(tick, 3400);
             return;
           }
 
-          window.setTimeout(tick, 95);
+          schedule(tick, 95);
         };
 
-        window.setTimeout(tick, 4000);
+        const restart = (level) => {
+          if (timer) window.clearTimeout(timer);
+          phrases = phrasesByLevel[level] || phrasesByLevel.everyday;
+          phraseIndex = 0;
+          charIndex = phrases[0].length;
+          deleting = true;
+          query.textContent = phrases[0];
+
+          if (!reduceMotion) schedule(tick, 4000);
+        };
+
+        restart(document.documentElement.dataset.level || 'everyday');
+
+        window.addEventListener('promptendium-level-change', (event) => {
+          restart(event.detail?.level || 'everyday');
+        });
       })();
     </script>
   </body>
