@@ -1,73 +1,326 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Prompt Generator | Promptendium</title>
-  <meta name="description" content="Build a clear, useful AI prompt from a plain-English task with Quick, Detailed and Custom modes." />
-  <meta name="robots" content="noindex,follow" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <style>
-    :root{--paper:#F7F6F2;--panel:#fff;--panel2:#FCFBF8;--ink:#151515;--muted:#706E68;--line:#DCD9D1;--violet:#6D4AFF;--violet2:#ECE8FF;--warn:#FFF4D8;--shadow:0 18px 60px rgba(21,21,21,.08);--max:1180px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#FCFBF8,#F7F6F2);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}img{display:block;max-width:100%}
-    .site-header{position:sticky;top:0;z-index:20;background:rgba(247,246,242,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-    .header-inner{max-width:var(--max);margin:auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand img{width:230px}.nav{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:750;color:#45423e}.nav a:hover,.nav .active{color:var(--violet)}
-    .hero{max-width:930px;margin:auto;padding:72px 20px 30px;text-align:center}.kicker{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--violet2);color:#5637DB;font-weight:850;font-size:12px;letter-spacing:.06em}.hero h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(42px,7vw,72px);line-height:.98;margin:18px 0 16px;font-weight:500;letter-spacing:-.045em}.hero p{font-size:18px;line-height:1.6;color:var(--muted);max-width:760px;margin:auto}
-    .shell{max-width:960px;margin:22px auto 80px;padding:0 20px}.generator{background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}.gen-head{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:14px}.gen-head h2{margin:0;font-size:18px}.status{font-size:12px;border:1px solid #CFE4D4;background:#EFF9F1;color:#2D6840;padding:6px 9px;border-radius:999px}.body{padding:27px}
-    .label{display:block;font-weight:850;margin-bottom:9px}.help{font-size:14px;color:var(--muted);line-height:1.5}.task{width:100%;min-height:145px;resize:vertical;border:1px solid #D8D5CE;background:#fff;border-radius:16px;padding:14px;outline:none;line-height:1.55}.task:focus,input:focus,select:focus,textarea:focus{border-color:var(--violet);box-shadow:0 0 0 4px rgba(109,74,255,.11);outline:none}
-    .examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}.chip,.rchip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:13px}.chip:hover,.rchip:hover{border-color:#C6BDF1;background:#FAF9FF}.mode-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.mode{position:relative;border:1px solid var(--line);background:var(--panel2);border-radius:17px;padding:14px;text-align:left}.mode strong,.mode span{display:block}.mode span{font-size:12px;color:var(--muted);margin-top:4px}.mode.active{background:var(--violet2);border-color:#C8BFFF}.recommended{display:inline-block!important;width:auto!important;color:#5637DB!important;background:#DED7FF;padding:2px 6px;border-radius:999px;margin-top:7px!important;font-weight:850}
-    .primary{border:0;background:var(--violet);color:#fff;border-radius:14px;padding:13px 18px;font-weight:850}.primary:hover{background:#5637DB}.primary.full{width:100%;margin-top:18px}.secondary{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 14px;font-weight:750}.ghost{border:0;background:transparent;color:var(--muted);padding:8px 0}
-    .panel{display:none}.panel.active{display:block}.details-head,.result-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.section-title{margin:0 0 5px;font-family:Georgia,"Times New Roman",serif;font-size:30px;font-weight:500;letter-spacing:-.03em}.progress{font-size:12px;color:var(--violet);font-weight:850;text-transform:uppercase;letter-spacing:.08em}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.field.wide{grid-column:1/-1}.field label{font-size:13px;font-weight:850;display:block;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid #D8D5CE;background:#fff;border-radius:14px;padding:12px 13px}.field textarea{min-height:95px;resize:vertical}.field small{display:block;color:var(--muted);margin-top:5px}.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-    .badges{display:flex;gap:7px;flex-wrap:wrap}.badge{background:var(--violet2);color:#5637DB;padding:6px 9px;border-radius:999px;font-size:12px;font-weight:850}.badge.warn{background:var(--warn);color:#735512}.prompt-card{margin-top:18px;border:1px solid var(--line);border-radius:19px;background:#FCFBF8;padding:19px}.prompt-text{white-space:pre-wrap;line-height:1.65;font-size:15px}.tools{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
-    .placeholder-wrap{border-top:1px solid var(--line);margin-top:23px;padding-top:22px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.option-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:13px;text-align:left}.option-card strong,.option-card small{display:block}.option-card small{color:var(--muted);margin-top:4px}.option-card.selected{border-color:#BDB0F7;background:var(--violet2)}.fillbox,.refinebox,.understanding{display:none;margin-top:14px;border:1px solid var(--line);border-radius:17px;padding:16px;background:#FBFAF7}.fillbox.open,.refinebox.open,.understanding.open{display:block}.fill-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.notice{margin-top:12px;font-size:13px;color:var(--muted)}.known-list{display:grid;gap:8px}.known-item{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding-bottom:8px}.known-item:last-child{border-bottom:0}.known-item span{color:var(--muted)}
-    footer{border-top:1px solid var(--line);padding:28px 20px 42px;color:var(--muted);font-size:13px}.footer-inner{max-width:var(--max);margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-    @media(max-width:760px){.nav{display:none}.brand img{width:195px}.hero{padding-top:48px}.hero p{font-size:16px}.shell{padding:0 12px}.generator{border-radius:22px}.body{padding:20px}.gen-head{padding:17px 20px}.mode-row,.three,.field-grid,.fill-grid{grid-template-columns:1fr}.field.wide{grid-column:auto}.details-head,.result-top{flex-direction:column}.mode{text-align:center}}
-  </style>
-</head>
-<body>
-<header class="site-header"><div class="header-inner"><a class="brand" href="/"><img src="/brand/promptendium-logo.webp" alt="Promptendium — The reference for better AI prompts." /></a><nav class="nav"><a href="/">Home</a><a href="/dictionary/">Prompt Dictionary</a><a class="active" href="/generator/">Prompt Generator</a><a href="/#guides">Guides</a></nav></div></header>
-<section class="hero"><span class="kicker">AI PROMPT GENERATOR</span><h1>Tell us what you need.<br />We’ll build the prompt.</h1><p>Describe your task in plain English. Promptendium works out what matters, asks only useful questions, and gives you a ready-to-use prompt.</p></section>
-<main class="shell"><div class="generator"><div class="gen-head"><h2>Prompt Generator</h2><span class="status">Local engine · private by design</span></div><div class="body">
-<section id="start" class="panel active">
-<label class="label" for="task">What do you want AI to help you do?</label><textarea class="task" id="task" placeholder="For example: I need to write an email to a customer who hasn't paid.">Write a firm email to Acme Ltd asking them to pay invoice 123 for £4,250 by Friday.</textarea>
-<div class="examples"><button class="chip" data-example="Write a firm email to Acme Ltd asking them to pay invoice 123 for £4,250 by Friday.">Detailed email</button><button class="chip" data-example="Compare the best accounting software for a small UK construction company.">Research & compare</button><button class="chip" data-example="Create an image prompt for a premium cordless drill product advert.">Image prompt</button><button class="chip" data-example="Debug this Python error and explain the fix to a beginner.">Debugging</button></div>
-<div style="margin-top:24px"><span class="label">How much control do you want?</span><div class="mode-row"><button class="mode" data-mode="quick"><strong>Quick</strong><span>Fastest — Promptendium handles the details.</span></button><button class="mode active" data-mode="detailed"><strong>Detailed</strong><span>Answer a few useful questions.</span><span class="recommended">Recommended</span></button><button class="mode" data-mode="custom"><strong>Custom</strong><span>Control every relevant detail.</span></button></div><p id="modeHelp" class="help">A few focused details give you a more tailored prompt.</p></div>
-<button id="begin" class="primary full">Create my prompt</button><p class="help" style="text-align:center">You can change anything afterwards.</p>
-</section>
-<section id="details" class="panel"><div class="details-head"><div><div id="detailProgress" class="progress">A few useful details</div><h3 id="detailsTitle" class="section-title">Fine-tune what matters</h3><p id="detailsHelp" class="help"></p></div><button id="back" class="ghost">← Back</button></div><div id="fields" class="field-grid"></div><div class="actions"><button id="generate" class="primary">Create my prompt</button><button id="skipDetails" class="secondary">Use placeholders instead</button></div></section>
-<section id="result" class="panel"><div class="result-top"><div><div id="badges" class="badges"></div><h3 class="section-title" style="margin-top:9px">Your prompt is ready</h3><p id="summary" class="help"></p></div><button id="restart" class="secondary">Create another</button></div>
-<div class="prompt-card"><div id="promptText" class="prompt-text"></div><div class="tools"><button id="copy" class="primary">Copy prompt</button><button id="understandBtn" class="secondary">What it understood</button><button id="refine" class="secondary">Refine</button><select id="destination" class="secondary" aria-label="Optimise for AI"><option>Universal</option><option>ChatGPT</option><option>Claude</option><option>Gemini</option><option>Copilot</option></select></div><div id="copyNotice" class="notice">Generated locally in your browser. No API key is exposed.</div></div>
-<div id="understanding" class="understanding"><strong>What Promptendium understood</strong><div id="knownList" class="known-list" style="margin-top:12px"></div></div>
-<div id="placeholderSection" class="placeholder-wrap"><h3 style="margin:0">Missing details</h3><p class="help">Choose how to handle information you haven’t supplied yet.</p><div class="three"><button class="option-card selected" data-pmode="template"><strong>Template</strong><small>Keep clear placeholders.</small></button><button class="option-card" data-pmode="fill"><strong>Fill in my details</strong><small>Insert your own values.</small></button><button class="option-card" data-pmode="sample"><strong>Generate sample data</strong><small>Use realistic fictional values.</small></button></div><div id="fillBox" class="fillbox"><div id="fillFields" class="fill-grid"></div><button id="applyFill" class="primary" style="margin-top:12px">Apply my details</button></div></div>
-<div id="refineBox" class="refinebox"><strong>Refine without losing your details</strong><div class="examples"><button class="rchip" data-r="Make the prompt shorter and more direct.">Shorter</button><button class="rchip" data-r="Make the prompt more detailed and structured.">More detailed</button><button class="rchip" data-r="Use a more professional tone.">More professional</button><button class="rchip" data-r="Strengthen the verification and source requirements.">Stronger verification</button></div><textarea id="refineInput" class="task" style="min-height:85px;margin-top:12px" placeholder="Or describe your own refinement..."></textarea><button id="applyRefine" class="primary" style="margin-top:10px">Apply refinement</button></div>
-</section>
-</div></div></main>
-<footer><div class="footer-inner"><span>© 2026 Promptendium</span><div class="footer-links"><a href="/dictionary/">Prompt Dictionary</a><a href="/generator/">Prompt Generator</a><a href="/#guides">Guides</a><a href="/#about">About</a></div></div></footer>
-<script>
-const $=id=>document.getElementById(id);const panels=['start','details','result'];const state={mode:'detailed',task:'',type:'other',risk:'standard',current:false,values:{},fields:[],basePrompt:'',placeholderValues:{},refinement:'',destination:'Universal'};
-function show(id){panels.forEach(x=>$(x).classList.toggle('active',x===id));window.scrollTo({top:0,behavior:'smooth'})}
-function human(s){return String(s||'').replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase())}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function classify(t){const x=t.toLowerCase();if(/\b(image|photo|illustration|logo|poster|visual)\b/.test(x))return'image_generation';if(/\b(debug|bug|error|exception|stack trace)\b/.test(x))return'debugging';if(/\b(code|script|function|api|javascript|python|typescript|sql)\b/.test(x))return'coding';if(/\b(summar|key points|tl;dr)\b/.test(x))return'summarisation';if(/\b(rewrite|rephrase|proofread|edit this)\b/.test(x))return'rewriting';if(/\b(compare|versus| vs |which is better|best .* for|research|latest|current|competitor)\b/.test(x))return'research';if(/\b(plan|roadmap|schedule|strategy)\b/.test(x))return'planning';if(/\b(analy[sz]e|analysis|evaluate|assess|compliance|compliant|electrical|regulation)\b/.test(x))return'analysis';if(/\b(email|letter|message|reply|invoice|customer)\b/.test(x))return'communication';if(/\b(write|draft|article|blog|caption|post)\b/.test(x))return'writing';if(/\b(explain|teach|learn|understand)\b/.test(x))return'explanation';return'other'}
-function risk(t){const x=t.toLowerCase();if(/\b(diagnos|medication dosage|legal advice|lawsuit|investment advice|wiring|electrical install|ev charger|consumer unit|breaker|circuit design|fire safety|exploit|employment law|regulation compliance|engineering calculation)\b/.test(x))return'high';if(/\b(health advice|legal matter|financial advice|safety procedure|cybersecurity|engineering design|electrical work|employment rights|regulatory requirement)\b/.test(x))return'elevated';return'standard'}
-function current(t){return /\b(latest|current|today|price|pricing|available|availability|regulation|law|standard|version|market|competitor|software)\b/i.test(t)}
-function extract(t){const v={};let m;if((m=t.match(/£\s?[\d,]+(?:\.\d{1,2})?/i)))v.amount=m[0].replace(/\s+/g,'');if((m=t.match(/\binvoice\s*(?:number|no\.?|#)?\s*([A-Z0-9-]+)/i)))v.invoice=m[1];if((m=t.match(/\b(?:within|by)\s+((?:\d+\s+days?)|(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)|tomorrow|the end of [^,.]+)/i)))v.deadline=m[1];if(/\bfirm\b/i.test(t))v.tone='Firm';else if(/\bfriendly\b/i.test(t))v.tone='Friendly';else if(/\bprofessional\b/i.test(t))v.tone='Professional';if(/\bUK\b|United Kingdom|Britain/i.test(t))v.jurisdiction='United Kingdom';return v}
-const F=(key,label,type='text',options=[],help='')=>({key,label,type,options,help});
-function fieldsFor(type,mode){const common=[F('audience','Audience / recipient'),F('outcome','Desired outcome','textarea')];let f=[];if(type==='communication'||type==='writing')f=[...common,F('tone','Tone','select',['Friendly','Professional','Firm','Very firm']),F('key_points','Important points','textarea'),F('avoid','Things to avoid','textarea')];else if(type==='research')f=[F('criteria','What should be compared or prioritised?','textarea'),F('jurisdiction','Country / market'),F('audience','Who is this for?'),F('format','Preferred output','select',['Recommendation with reasons','Comparison table','Shortlist','Detailed report']),F('constraints','Budget or constraints','textarea')];else if(type==='coding'||type==='debugging')f=[F('environment','Environment / stack'),F('source','Code, error or relevant evidence','textarea'),F('expected','Expected result','textarea'),F('constraints','Constraints','textarea')];else if(type==='image_generation')f=[F('subject','Subject'),F('composition','Composition'),F('environment','Environment'),F('style','Visual style'),F('use','Intended use'),F('aspect_ratio','Aspect ratio')];else if(type==='analysis')f=[F('context','Relevant context','textarea'),F('jurisdiction','Jurisdiction / standards'),F('criteria','What should be checked?','textarea'),F('format','Preferred output'),F('constraints','Constraints / exclusions','textarea')];else if(type==='planning')f=[F('objective','Objective','textarea'),F('audience','Who is involved?'),F('constraints','Time, budget or constraints','textarea'),F('format','Preferred plan format')];else if(type==='summarisation'||type==='rewriting')f=[F('source','Source material','textarea'),F('audience','Audience'),F('format','Output preference'),F('tone','Tone')];else if(type==='explanation')f=[F('level','Knowledge level','select',['Beginner','Some knowledge','Advanced']),F('format','Preferred format'),F('examples','Example preference')];else f=[F('goal','Desired outcome','textarea'),F('context','Useful context','textarea'),F('audience','Audience'),F('format','Preferred output')];if(mode==='detailed')return f.slice(0,Math.min(3,f.length));return f}
-function renderFields(){const wrap=$('fields');wrap.innerHTML='';state.fields.forEach((f,i)=>{const d=document.createElement('div');d.className='field '+(f.type==='textarea'?'wide':'');const value=state.values[f.key]||'';let c='';if(f.type==='textarea')c=`<textarea data-key="${f.key}">${esc(value)}</textarea>`;else if(f.type==='select')c=`<select data-key="${f.key}"><option value="">Choose…</option>${f.options.map(o=>`<option ${value===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`;else c=`<input data-key="${f.key}" value="${esc(value)}" />`;d.innerHTML=`<label>${esc(f.label)}${state.mode==='custom'&&i>2?' <span style="color:var(--muted);font-weight:400">(optional)</span>':''}</label>${c}${f.help?`<small>${esc(f.help)}</small>`:''}`;wrap.appendChild(d)})}
-function collectFields(){document.querySelectorAll('#fields [data-key]').forEach(el=>state.values[el.dataset.key]=el.value.trim())}
-function token(name){return`[${name}]`}function val(key,name){return state.values[key]||token(name)}
-function buildPrompt(){const t=state.task;const type=state.type;let p='';if(type==='communication'||type==='writing'){p=`Create a clear, ready-to-use ${/email/i.test(t)?'email':'piece of writing'} for this task:\n\n${t}\n\nAudience/recipient: ${val('audience','RECIPIENT OR AUDIENCE')}\nDesired outcome: ${val('outcome','DESIRED OUTCOME')}\nTone: ${state.values.tone||extract(t).tone||'Professional'}`;if(state.values.key_points)p+=`\nImportant points: ${state.values.key_points}`;if(state.values.avoid)p+=`\nAvoid: ${state.values.avoid}`;p+='\n\nPreserve every supplied fact. Do not invent names, figures, agreements or consequences. Return the finished content without unnecessary preamble.'}else if(type==='research'){p=`Research and compare options for this request:\n\n${t}\n\nDecision criteria: ${val('criteria','DECISION CRITERIA')}\nCountry/market: ${state.values.jurisdiction||extract(t).jurisdiction||token('COUNTRY OR MARKET')}\nAudience: ${val('audience','TARGET AUDIENCE')}\nOutput: ${state.values.format||'A concise recommendation with reasons'}`;if(state.values.constraints)p+=`\nConstraints: ${state.values.constraints}`;p+='\n\nIf you have web access, verify current information using primary or authoritative sources, distinguish facts from estimates, include relevant dates, and cite the most important sources. Explain trade-offs rather than simply ranking options.'}else if(type==='coding'||type==='debugging'){p=`Help with this ${type==='debugging'?'debugging':'coding'} task:\n\n${t}\n\nEnvironment / stack: ${val('environment','ENVIRONMENT OR STACK')}\nRelevant code, error or evidence:\n${val('source','PASTE CODE, ERROR OR EVIDENCE')}\nExpected result: ${val('expected','EXPECTED RESULT')}`;if(state.values.constraints)p+=`\nConstraints: ${state.values.constraints}`;p+='\n\nDiagnose from the evidence provided. Do not invent logs, runtime behaviour, schemas or dependencies. Give a specific solution and include concise validation steps.'}else if(type==='image_generation'){p=`Create an image-generation prompt for this request:\n\n${t}\n\nSubject: ${val('subject','SUBJECT')}\nComposition: ${val('composition','COMPOSITION')}\nEnvironment: ${val('environment','ENVIRONMENT')}\nVisual style: ${val('style','VISUAL STYLE')}\nIntended use: ${val('use','INTENDED USE')}`;if(state.values.aspect_ratio)p+=`\nAspect ratio: ${state.values.aspect_ratio}`;p+='\n\nUse concrete visual descriptions rather than vague quality claims. Keep the main subject clear and make the framing appropriate to the intended use.'}else if(type==='analysis'){p=`Analyse this request carefully:\n\n${t}\n\nRelevant context: ${val('context','RELEVANT CONTEXT')}\nJurisdiction / standards: ${val('jurisdiction','JURISDICTION OR APPLICABLE STANDARDS')}\nChecks or criteria: ${val('criteria','WHAT SHOULD BE CHECKED')}\nPreferred output: ${val('format','DESIRED OUTPUT')}`;if(state.values.constraints)p+=`\nConstraints: ${state.values.constraints}`;p+='\n\nSeparate confirmed facts, assumptions and uncertainties. Give clear conclusions and identify what requires verification.'}else if(type==='planning'){p=`Create an actionable plan for this request:\n\n${t}\n\nObjective: ${val('objective','OBJECTIVE')}\nPeople/audience: ${val('audience','PEOPLE OR AUDIENCE')}\nConstraints: ${val('constraints','TIME, BUDGET OR CONSTRAINTS')}\nFormat: ${state.values.format||'Prioritised steps with next actions'}\n\nState important assumptions and organise the plan so it can be acted on immediately.`}else if(type==='summarisation'||type==='rewriting'){p=`${type==='rewriting'?'Rewrite':'Summarise'} the following material to fulfil this task:\n\n${t}\n\nSource material:\n${val('source','PASTE SOURCE MATERIAL')}\nAudience: ${val('audience','TARGET AUDIENCE')}\nOutput preference: ${val('format','DESIRED OUTPUT')}\nTone: ${state.values.tone||'Clear and natural'}\n\nPreserve the source meaning and factual content. Do not invent missing information.`}else if(type==='explanation'){p=`Explain this clearly:\n\n${t}\n\nKnowledge level: ${state.values.level||'Beginner-friendly'}\nPreferred format: ${val('format','PREFERRED FORMAT')}\n\nUse plain language, define necessary technical terms, and use a practical example when it improves understanding. Avoid irrelevant background.`}else{p=`Help accomplish this request:\n\n${t}\n\nDesired outcome: ${val('goal','DESIRED OUTCOME')}\nUseful context: ${val('context','USEFUL CONTEXT')}\nAudience: ${val('audience','TARGET AUDIENCE')}\nPreferred output: ${val('format','DESIRED OUTPUT')}\n\nIf an important ambiguity prevents a reliable result, ask one concise clarification question. Otherwise make only safe, non-factual assumptions and produce the most useful result.`}
-if(state.current&&!/web access/.test(p))p+='\n\nIf you have web access, verify information that could have changed, prefer authoritative sources, include relevant dates, and cite important claims.';if(state.risk!=='standard')p+='\n\nBecause this is a consequential topic, distinguish confirmed information from assumptions, identify material uncertainty, and recommend appropriate qualified or authoritative verification before consequential action.';if(state.destination!=='Universal')p+=`\n\nOptimise the instructions for ${state.destination} while preserving the task, facts and safeguards.`;if(state.refinement)p+=`\n\nAdditional refinement: ${state.refinement}`;return p.trim()}
-function placeholders(text){return [...new Set(text.match(/\[[A-Z0-9 ,/\-]+\]/g)||[])]}function sampleFor(tok){const k=tok.toLowerCase();if(k.includes('audience'))return'Small business owners';if(k.includes('recipient'))return'Accounts Manager';if(k.includes('country'))return'United Kingdom';if(k.includes('market'))return'United Kingdom';if(k.includes('output'))return'A concise action plan';if(k.includes('context'))return'Example fictional project context';if(k.includes('criteria'))return'Cost, reliability and ease of use';if(k.includes('environment'))return'Node.js 24 on Linux';if(k.includes('code'))return'Example code or error details';if(k.includes('subject'))return'Premium cordless drill';if(k.includes('composition'))return'Three-quarter hero shot';if(k.includes('style'))return'Premium product photography';if(k.includes('objective'))return'Launch within 30 days';return'Example fictional value'}
-function applyPlaceholders(){let p=state.basePrompt;Object.entries(state.placeholderValues).forEach(([k,v])=>{if(v)p=p.split(k).join(v)});$('promptText').textContent=p}
-function renderKnown(){const x={...extract(state.task),...state.values};const wrap=$('knownList');wrap.innerHTML='';const entries=Object.entries(x).filter(([,v])=>v);if(!entries.length){wrap.innerHTML='<div class="help">No structured details were supplied; the prompt uses placeholders where needed.</div>';return}entries.forEach(([k,v])=>{const d=document.createElement('div');d.className='known-item';d.innerHTML=`<strong>${esc(human(k))}</strong><div>${esc(v)}</div>`;wrap.appendChild(d)})}
-function renderResult(){state.basePrompt=buildPrompt();state.placeholderValues={};$('promptText').textContent=state.basePrompt;$('summary').textContent=state.task;const badges=[human(state.mode),human(state.type)];if(state.risk!=='standard')badges.push(state.risk+' risk');if(state.current)badges.push('Current info');$('badges').innerHTML=badges.map(b=>`<span class="badge ${/risk|Current/.test(b)?'warn':''}">${esc(b)}</span>`).join('');renderKnown();$('placeholderSection').style.display=placeholders(state.basePrompt).length?'block':'none';$('fillBox').classList.remove('open');$('copyNotice').textContent='Generated locally in your browser. No API key is exposed.';show('result')}
-document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{state.mode=b.dataset.mode;document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x===b));$('modeHelp').textContent={quick:'Fastest route: Promptendium makes sensible defaults and uses placeholders.',detailed:'A few focused details give you a more tailored prompt.',custom:'See and control every relevant detail for the task.'}[state.mode]});document.querySelectorAll('[data-example]').forEach(b=>b.onclick=()=>{$('task').value=b.dataset.example});
-$('begin').onclick=()=>{state.task=$('task').value.trim();if(!state.task){$('task').focus();return}state.type=classify(state.task);state.risk=risk(state.task);state.current=current(state.task);state.values=extract(state.task);state.fields=fieldsFor(state.type,state.mode);state.refinement='';state.destination='Universal';if(state.mode==='quick')renderResult();else{$('detailProgress').textContent=state.mode==='custom'?'Custom mode':'A few useful details';$('detailsTitle').textContent=state.mode==='custom'?'Fine-tune every relevant detail':'A few details will make this better';$('detailsHelp').textContent=`Promptendium identified this as ${human(state.type).toLowerCase()}. Only relevant controls are shown.`;renderFields();show('details')}};$('back').onclick=()=>show('start');$('skipDetails').onclick=renderResult;$('generate').onclick=()=>{collectFields();renderResult()};$('restart').onclick=()=>{state.values={};state.refinement='';$('task').value='';show('start')};
-$('understandBtn').onclick=()=>$('understanding').classList.toggle('open');$('refine').onclick=()=>$('refineBox').classList.toggle('open');document.querySelectorAll('.rchip').forEach(b=>b.onclick=()=>{$('refineInput').value=b.dataset.r});$('applyRefine').onclick=()=>{state.refinement=$('refineInput').value.trim();renderResult();$('copyNotice').textContent='Refinement applied while preserving your task details.'};$('destination').onchange=e=>{state.destination=e.target.value;renderResult();$('copyNotice').textContent=`Prompt optimised for ${state.destination}.`};
-document.querySelectorAll('[data-pmode]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-pmode]').forEach(x=>x.classList.toggle('selected',x===b));const mode=b.dataset.pmode;if(mode==='template'){state.placeholderValues={};applyPlaceholders();$('fillBox').classList.remove('open')}else if(mode==='sample'){state.placeholderValues={};placeholders(state.basePrompt).forEach(t=>state.placeholderValues[t]=sampleFor(t));applyPlaceholders();$('fillBox').classList.remove('open');$('copyNotice').textContent='Realistic fictional sample data added for testing.'}else{const wrap=$('fillFields');wrap.innerHTML='';placeholders(state.basePrompt).forEach(t=>{const d=document.createElement('div');d.className='field';d.innerHTML=`<label>${esc(t.replace(/[\[\]]/g,''))}</label><input data-token="${esc(t)}" value="${esc(state.placeholderValues[t]||'')}" placeholder="Enter your detail" />`;wrap.appendChild(d)});$('fillBox').classList.add('open')}});$('applyFill').onclick=()=>{document.querySelectorAll('#fillFields [data-token]').forEach(i=>{if(i.value.trim())state.placeholderValues[i.dataset.token]=i.value.trim()});applyPlaceholders();$('fillBox').classList.remove('open');$('copyNotice').textContent='Your details have been inserted.'};
-$('copy').onclick=async()=>{const text=$('promptText').textContent;try{await navigator.clipboard.writeText(text);$('copyNotice').textContent='Prompt copied.'}catch{const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();$('copyNotice').textContent='Prompt copied.'}}
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>AI Prompt Generator | Promptendium</title>
+    <meta
+      name="description"
+      content="Promptendium's AI Prompt Generator is being prepared as a dedicated tool for building clear, useful AI prompts."
+    />
+    <meta name="robots" content="noindex,follow" />
+    <meta name="theme-color" content="#F7F6F2" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <style is:global>
+      :root {
+        --paper:#F7F6F2;
+        --paper-2:#FCFBF8;
+        --ink:#151515;
+        --muted:#706E68;
+        --line:#DCD9D1;
+        --violet:#6D4AFF;
+        --violet-dark:#5637DB;
+        --violet-soft:#ECE8FF;
+        --max:1220px;
+        --shadow:0 18px 60px rgba(21,21,21,.08);
+      }
+
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body {
+        margin:0;
+        background:var(--paper);
+        color:var(--ink);
+        font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        line-height:1.55;
+        -webkit-font-smoothing:antialiased;
+      }
+
+      a { color:inherit; text-decoration:none; }
+      img { display:block; max-width:100%; }
+      .wrap { width:min(calc(100% - 38px),var(--max)); margin-inline:auto; }
+
+      .site-header {
+        position:sticky;
+        top:0;
+        z-index:40;
+        background:rgba(247,246,242,.92);
+        backdrop-filter:blur(18px);
+        border-bottom:1px solid rgba(220,217,209,.9);
+      }
+
+      .header-inner {
+        min-height:78px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:24px;
+      }
+
+      .header-logo { width:300px; display:flex; align-items:center; }
+      .header-logo img { width:100%; height:auto; }
+
+      .nav {
+        display:flex;
+        align-items:center;
+        gap:28px;
+        font-size:14px;
+        font-weight:700;
+        color:#3D3A36;
+      }
+
+      .nav a:hover,
+      .nav .active { color:var(--violet); }
+
+      .nav-cta {
+        border-radius:999px;
+        padding:10px 16px;
+        background:var(--ink);
+        color:#fff!important;
+      }
+
+      main { min-height:calc(100vh - 185px); }
+
+      .hero {
+        position:relative;
+        overflow:hidden;
+        padding:100px 0 110px;
+      }
+
+      .hero::after {
+        content:"";
+        position:absolute;
+        width:600px;
+        height:600px;
+        border-radius:50%;
+        right:-220px;
+        top:-220px;
+        background:radial-gradient(circle,rgba(109,74,255,.13),transparent 68%);
+        pointer-events:none;
+      }
+
+      .hero-grid {
+        position:relative;
+        z-index:1;
+        display:grid;
+        grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+        gap:70px;
+        align-items:center;
+      }
+
+      .eyebrow {
+        display:inline-flex;
+        align-items:center;
+        gap:9px;
+        padding:8px 12px;
+        border:1px solid var(--line);
+        border-radius:999px;
+        background:rgba(255,255,255,.58);
+        color:#4B4944;
+        font-size:13px;
+        font-weight:800;
+      }
+
+      .dot {
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:var(--violet);
+      }
+
+      h1,
+      h2 {
+        margin:0;
+        font-family:Georgia,"Times New Roman",serif;
+        font-weight:500;
+        letter-spacing:-.045em;
+      }
+
+      h1 {
+        margin-top:24px;
+        font-size:clamp(54px,7vw,92px);
+        line-height:.95;
+        max-width:820px;
+      }
+
+      .lede {
+        margin:26px 0 0;
+        max-width:710px;
+        color:var(--muted);
+        font-size:clamp(18px,2vw,22px);
+      }
+
+      .product-card {
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.68);
+        border-radius:24px;
+        padding:30px;
+        box-shadow:var(--shadow);
+      }
+
+      .product-card .label {
+        color:var(--violet);
+        text-transform:uppercase;
+        letter-spacing:.12em;
+        font-size:11px;
+        font-weight:900;
+      }
+
+      .product-card h2 {
+        margin:16px 0 12px;
+        font-size:36px;
+        line-height:1.05;
+      }
+
+      .product-card p {
+        margin:0;
+        color:var(--muted);
+        font-size:15px;
+      }
+
+      .feature-list {
+        display:grid;
+        gap:10px;
+        margin-top:24px;
+      }
+
+      .feature {
+        display:flex;
+        gap:10px;
+        align-items:flex-start;
+        padding-top:10px;
+        border-top:1px solid var(--line);
+        color:#4B4944;
+        font-size:14px;
+      }
+
+      .feature strong { color:var(--ink); }
+      .check { color:var(--violet); font-weight:900; }
+
+      .note {
+        margin-top:26px;
+        padding:15px 17px;
+        border-radius:14px;
+        background:var(--violet-soft);
+        color:#4D3BA5;
+        font-size:13px;
+        font-weight:700;
+      }
+
+      footer {
+        padding:32px 0 45px;
+        border-top:1px solid var(--line);
+      }
+
+      .footer-inner {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:24px;
+        flex-wrap:wrap;
+        color:#6D6962;
+        font-size:13px;
+      }
+
+      .footer-brand {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        color:var(--ink);
+        font-weight:850;
+      }
+
+      .footer-brand img { width:36px; height:36px; object-fit:contain; }
+      .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+
+      @media (max-width:980px) {
+        .nav a:not(.nav-cta) { display:none; }
+        .header-logo { width:245px; }
+        .hero-grid { grid-template-columns:1fr; }
+      }
+
+      @media (max-width:650px) {
+        .wrap { width:min(calc(100% - 24px),var(--max)); }
+        .header-inner { min-height:67px; }
+        .header-logo { width:205px; }
+        .nav-cta { padding:9px 12px; font-size:12px; }
+        .hero { padding:66px 0 72px; }
+        h1 { font-size:56px; }
+        .product-card { padding:24px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a href="/" class="header-logo" aria-label="Promptendium home">
+          <img
+            src="/brand/promptendium-logo.webp"
+            alt="Promptendium — The reference for better AI prompts."
+            width="1256"
+            height="303"
+          />
+        </a>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="/dictionary/">Dictionary</a>
+          <a href="/generator/" class="active">Prompt Generator</a>
+          <a href="/#learn">Learn</a>
+          <a href="/#guides">Guides</a>
+          <a href="/#about" class="nav-cta">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow"><span class="dot"></span> Promptendium tool</div>
+            <h1>Build a better AI prompt.</h1>
+            <p class="lede">
+              The Promptendium Prompt Generator will turn a plain-English task into a clearer,
+              more useful prompt with the right level of detail for what you are trying to do.
+            </p>
+          </div>
+
+          <aside class="product-card" aria-label="Prompt Generator overview">
+            <div class="label">In development</div>
+            <h2>Prompt Generator</h2>
+            <p>
+              The generator is being developed as a separate Promptendium product. The public
+              page is intentionally simple while the tool itself is developed independently.
+            </p>
+
+            <div class="feature-list">
+              <div class="feature"><span class="check">✓</span><span><strong>Quick</strong> mode for fast prompt creation</span></div>
+              <div class="feature"><span class="check">✓</span><span><strong>Detailed</strong> mode for useful guided questions</span></div>
+              <div class="feature"><span class="check">✓</span><span><strong>Custom</strong> mode for full control</span></div>
+            </div>
+
+            <div class="note">Access, trial and subscription controls will be added separately before launch.</div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <img src="/brand/promptendium-mark.webp" alt="" width="303" height="303" />
+          <span>Promptendium</span>
+        </div>
+        <div class="footer-links">
+          <a href="/dictionary/">Dictionary</a>
+          <a href="/generator/">Prompt Generator</a>
+          <a href="/#learn">Learn</a>
+          <a href="/#guides">Guides</a>
+          <a href="/#about">About</a>
+        </div>
+        <div>© 2026 Promptendium</div>
+      </div>
+    </footer>
+  </body>
 </html>
