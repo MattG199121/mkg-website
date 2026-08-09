@@ -1,4 +1,6 @@
 ---
+import EverydayExperience from './EverydayExperience.astro';
+
 interface Props {
   goal?: 'learn' | 'save' | 'create' | 'explore';
 }
@@ -166,12 +168,23 @@ const childScript = `${base}scripts/child-experience.js`;
   </div>
 </section>
 
+<div class="embedded-everyday-experience">
+  <EverydayExperience goal={goal} />
+</div>
+
 <script is:inline>
   (() => {
-    const selectedGoal = document.documentElement.dataset.goal;
-    if (!selectedGoal) return;
-    document.querySelectorAll('.child-experience').forEach((node) => {
-      node.dataset.goal = selectedGoal;
+    const syncGoal = (goal) => {
+      if (!['learn', 'save', 'create', 'explore'].includes(goal)) return;
+      document.querySelectorAll('.child-experience, [data-everyday-experience]').forEach((node) => {
+        node.dataset.goal = goal;
+      });
+    };
+
+    syncGoal(document.documentElement.dataset.goal || 'save');
+
+    window.addEventListener('promptendium-personalisation-change', (event) => {
+      syncGoal(event.detail?.goal || document.documentElement.dataset.goal || 'save');
     });
   })();
 </script>
