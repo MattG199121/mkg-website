@@ -1,0 +1,200 @@
+---
+interface Props {
+  goal?: 'learn' | 'save' | 'create' | 'explore';
+}
+
+const { goal = 'save' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const stylesheet = `${base}styles/everyday-experience.css`;
+const script = `${base}scripts/everyday-experience.js`;
+
+const goalCopy = {
+  learn: {
+    label: 'Learn',
+    eyebrow: 'No jargon required',
+    title: 'Understand it without the complicated bits.',
+    intro: 'Tell us what is confusing. We’ll help you ask AI for a clear explanation in ordinary language.',
+    question: 'What would you like to make clearer?',
+    noteTitle: 'Good to know',
+    note: 'You can write prompts in normal English. AI has enough confusing terminology already.'
+  },
+  save: {
+    label: 'Save time',
+    eyebrow: 'Everyday AI, made useful',
+    title: 'Less admin. More time for everything else.',
+    intro: 'Start with the job you want off your plate. Promptendium turns the rough thought into something AI can actually work with.',
+    question: 'What would you rather not spend the next hour doing?',
+    noteTitle: 'Quick tip',
+    note: 'The more AI knows what you are trying to achieve, the less it has to guess.'
+  },
+  create: {
+    label: 'Create',
+    eyebrow: 'A rough idea is enough',
+    title: 'Got half an idea? That’s a perfectly good start.',
+    intro: 'You bring the thought. We’ll help turn it into a clear request for writing, ideas, plans and creative work.',
+    question: 'What are you trying to make?',
+    noteTitle: 'Don’t overthink it',
+    note: '“I need something for…” is often enough to get started. Prompt engineering sounds far more dramatic than it is.'
+  },
+  explore: {
+    label: 'Explore',
+    eyebrow: 'Useful things you can try',
+    title: 'Find out what AI is actually good for.',
+    intro: 'Skip the technical tour. Try practical examples that show where AI can genuinely make everyday life easier.',
+    question: 'Where shall we start?',
+    noteTitle: 'No exam at the end',
+    note: 'Try something, change it, ask a follow-up. That is usually more useful than learning a pile of AI terminology first.'
+  }
+} as const;
+
+const copy = goalCopy[goal];
+---
+
+<link rel="stylesheet" href={stylesheet} />
+
+<section class="everyday-experience" data-everyday-experience data-goal={goal} aria-labelledby="everyday-title">
+  <div class="everyday-experience__shape everyday-experience__shape--one" aria-hidden="true"></div>
+  <div class="everyday-experience__shape everyday-experience__shape--two" aria-hidden="true"></div>
+
+  <header class="everyday-topbar">
+    <a class="everyday-brand" href={base} aria-label="Promptendium home">
+      <span class="everyday-brand__mark" aria-hidden="true">P</span>
+      <span class="everyday-brand__name">Promptendium</span>
+      <span class="everyday-brand__section">Everyday</span>
+    </a>
+
+    <div class="everyday-goal-badge" aria-label={`Selected goal: ${copy.label}`}>
+      <span class="everyday-goal-badge__dot" aria-hidden="true"></span>
+      <span data-goal-label>{copy.label}</span>
+    </div>
+  </header>
+
+  <div class="everyday-layout">
+    <section class="everyday-copy" aria-label="Choose an everyday task">
+      <div class="everyday-copy__intro">
+        <p class="everyday-eyebrow" data-eyebrow>{copy.eyebrow}</p>
+        <h1 id="everyday-title" data-title>{copy.title}</h1>
+        <p class="everyday-intro" data-intro>{copy.intro}</p>
+      </div>
+
+      <div class="everyday-actions-block">
+        <div class="everyday-actions-heading">
+          <h2 data-question>{copy.question}</h2>
+          <span>No technical terms needed.</span>
+        </div>
+
+        <div class="everyday-actions" role="group" aria-label="Choose what you want AI to help with">
+          <button class="everyday-choice is-active" type="button" data-task-index="0" aria-pressed="true">
+            <span class="everyday-choice__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 4.5h10a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2Z"/><path d="M7 9h6M7 12h7M7 15h4M17 8.5l3-3M18.5 4l1.5 1.5"/></svg>
+            </span>
+            <span class="everyday-choice__text"><strong data-choice-title>Write something</strong><small data-choice-subtitle>Start with the awkward bit</small></span>
+            <span class="everyday-choice__arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="everyday-choice" type="button" data-task-index="1" aria-pressed="false">
+            <span class="everyday-choice__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3v-3A2.5 2.5 0 0 1 4 14.5v-8Z"/><path d="M8 9h8M8 12h5"/></svg>
+            </span>
+            <span class="everyday-choice__text"><strong data-choice-title>Understand something</strong><small data-choice-subtitle>Make the confusing bit clearer</small></span>
+            <span class="everyday-choice__arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="everyday-choice" type="button" data-task-index="2" aria-pressed="false">
+            <span class="everyday-choice__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 5h12M6 12h12M6 19h12"/><circle cx="4" cy="5" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="19" r="1"/></svg>
+            </span>
+            <span class="everyday-choice__text"><strong data-choice-title>Organise something</strong><small data-choice-subtitle>Turn a mess into a plan</small></span>
+            <span class="everyday-choice__arrow" aria-hidden="true">→</span>
+          </button>
+
+          <button class="everyday-choice" type="button" data-task-index="3" aria-pressed="false">
+            <span class="everyday-choice__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9.5 18h5M10.5 21h3"/><path d="M8.2 14.2A6 6 0 1 1 15.8 14.2c-.86.7-1.3 1.4-1.3 2.3h-5c0-.9-.44-1.6-1.3-2.3Z"/></svg>
+            </span>
+            <span class="everyday-choice__text"><strong data-choice-title>Get some ideas</strong><small data-choice-subtitle>Get past the blank page</small></span>
+            <span class="everyday-choice__arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <aside class="everyday-margin-note" aria-label="Helpful note">
+        <span class="everyday-margin-note__label" data-note-title>{copy.noteTitle}</span>
+        <p data-note>{copy.note}</p>
+      </aside>
+    </section>
+
+    <section class="everyday-translator" aria-labelledby="translator-title">
+      <div class="everyday-translator__header">
+        <div>
+          <p class="everyday-translator__kicker">The Prompt Translator</p>
+          <h2 id="translator-title">Just say what you mean.</h2>
+        </div>
+        <span class="everyday-translator__status"><span aria-hidden="true">✓</span> No jargon</span>
+      </div>
+
+      <div class="everyday-rough">
+        <div class="everyday-step-label">
+          <span>1</span>
+          <div><strong>Your rough thought</strong><small>It does not need to be polished.</small></div>
+        </div>
+        <label class="everyday-sr-only" for="everyday-rough-input">Your rough thought</label>
+        <textarea id="everyday-rough-input" data-rough-input rows="2" spellcheck="true">Need to email someone about being late with something.</textarea>
+        <div class="everyday-rough__footer">
+          <span>Normal English is perfect.</span>
+          <button class="everyday-make-useful" type="button" data-build-button>
+            Make this useful
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="everyday-bridge" aria-hidden="true">
+        <span></span>
+        <strong>Promptendium adds the useful bits</strong>
+        <span></span>
+      </div>
+
+      <div class="everyday-details" aria-label="Useful details Promptendium adds">
+        <div class="everyday-detail" data-detail="who">
+          <span class="everyday-detail__label">WHO</span>
+          <strong data-detail-who>project contact</strong>
+        </div>
+        <div class="everyday-detail" data-detail="job">
+          <span class="everyday-detail__label">JOB</span>
+          <strong data-detail-job>write an email</strong>
+        </div>
+        <div class="everyday-detail" data-detail="tone">
+          <span class="everyday-detail__label">TONE</span>
+          <strong data-detail-tone>polite + clear</strong>
+        </div>
+        <div class="everyday-detail" data-detail="important">
+          <span class="everyday-detail__label">IMPORTANT</span>
+          <strong data-detail-important>new delivery date</strong>
+        </div>
+      </div>
+
+      <div class="everyday-ready" aria-live="polite">
+        <div class="everyday-step-label everyday-step-label--ready">
+          <span>2</span>
+          <div><strong>Your better prompt</strong><small>Ready to copy into your AI tool.</small></div>
+        </div>
+        <p data-ready-prompt>Write a polite professional email explaining that my project will be two days late. Keep it concise, take responsibility, apologise briefly and confirm the new delivery date.</p>
+        <div class="everyday-ready__footer">
+          <p><strong>Why this works:</strong> <span data-why>This tells AI what to write, how it should sound and what the message needs to include.</span></p>
+          <button type="button" class="everyday-copy-button" data-copy-button aria-label="Copy the better prompt">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+            <span data-copy-label>Copy prompt</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="everyday-translator__footnote">
+        <span class="everyday-translator__spark" aria-hidden="true">✦</span>
+        <p><strong>You do not need to learn “prompt engineering”.</strong> You just need to explain what you want. We’ll help with the AI bit.</p>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script is:inline src={script} defer></script>
