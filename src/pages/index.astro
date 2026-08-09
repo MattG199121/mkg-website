@@ -4,6 +4,7 @@ import '../styles/animation-slow.css';
 import '../styles/theme.css';
 import '../styles/audience.css';
 import '../styles/experience.css';
+import '../styles/personalisation.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -15,7 +16,7 @@ const favicon = `${base}favicon.png`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Promptendium — Less guessing. Better prompting.</title>
-    <meta name="description" content="Practical AI prompts and guidance for children, everyday users and technical users." />
+    <meta name="description" content="A personalised AI prompting reference for learning, saving time, creating and exploring." />
     <meta name="theme-color" content="#F7F6F2" id="themeColor" />
     <link rel="icon" type="image/png" href={favicon} />
     <script is:inline>
@@ -25,10 +26,30 @@ const favicon = `${base}favicon.png`;
           const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.dataset.theme = theme;
 
-          const savedLevel = localStorage.getItem('promptendium-level');
-          document.documentElement.dataset.level = ['children', 'everyday', 'technical'].includes(savedLevel) ? savedLevel : 'everyday';
+          const validAudiences = ['school', 'student', 'everyday', 'technical'];
+          const validGoals = ['learn', 'save', 'create', 'explore'];
+          const savedAudience = localStorage.getItem('promptendium-audience');
+          const savedGoal = localStorage.getItem('promptendium-goal');
+          const previousLevel = localStorage.getItem('promptendium-level');
+
+          const audience = validAudiences.includes(savedAudience)
+            ? savedAudience
+            : previousLevel === 'children'
+              ? 'school'
+              : previousLevel === 'technical'
+                ? 'technical'
+                : 'everyday';
+
+          const goal = validGoals.includes(savedGoal) ? savedGoal : 'save';
+          const level = audience === 'school' ? 'children' : audience === 'technical' ? 'technical' : 'everyday';
+
+          document.documentElement.dataset.audience = audience;
+          document.documentElement.dataset.goal = goal;
+          document.documentElement.dataset.level = level;
         } catch {
           document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.audience = 'everyday';
+          document.documentElement.dataset.goal = 'save';
           document.documentElement.dataset.level = 'everyday';
         }
       })();
@@ -58,92 +79,74 @@ const favicon = `${base}favicon.png`;
         <section class="hero" aria-labelledby="page-title">
           <div class="wrap hero-grid">
             <div class="hero-copy">
-              <div class="audience-row entrance entrance-1">
-                <span class="audience-label">I am a</span>
-                <div class="audience-switcher" role="group" aria-label="Choose your Promptendium level">
-                  <button class="audience-option" type="button" data-audience-level="children" aria-pressed="false">Child</button>
-                  <button class="audience-option" type="button" data-audience-level="everyday" aria-pressed="true">Non-technical person</button>
-                  <button class="audience-option" type="button" data-audience-level="technical" aria-pressed="false">Technical person</button>
+              <div class="personalisation-panel entrance entrance-1" aria-label="Personalise Promptendium">
+                <div class="selector-row">
+                  <span class="selector-label">I am…</span>
+                  <div class="audience-switcher" role="group" aria-label="Choose who you are">
+                    <button class="audience-option" type="button" data-audience="school" aria-pressed="false">School student</button>
+                    <button class="audience-option" type="button" data-audience="student" aria-pressed="false">College / University</button>
+                    <button class="audience-option" type="button" data-audience="everyday" aria-pressed="true">Everyday user</button>
+                    <button class="audience-option" type="button" data-audience="technical" aria-pressed="false">Technical user</button>
+                  </div>
+                </div>
+
+                <div class="selector-row">
+                  <span class="selector-label">I want to…</span>
+                  <div class="goal-switcher" role="group" aria-label="Choose what you want to do">
+                    <button class="goal-option" type="button" data-goal="learn" aria-pressed="false">Learn</button>
+                    <button class="goal-option" type="button" data-goal="save" aria-pressed="true">Save time</button>
+                    <button class="goal-option" type="button" data-goal="create" aria-pressed="false">Create</button>
+                    <button class="goal-option" type="button" data-goal="explore" aria-pressed="false">Explore</button>
+                  </div>
                 </div>
               </div>
 
-              <div class="message-stack">
-                <div class="copy-slot entrance entrance-2">
-                  <div class="eyebrow level-copy" data-level="children">AI that makes sense</div>
-                  <div class="eyebrow level-copy" data-level="everyday">Practical AI prompting</div>
-                  <div class="eyebrow level-copy" data-level="technical">Prompt engineering workspace</div>
-                </div>
-
-                <div class="copy-slot entrance entrance-3">
-                  <h1 id="page-title" class="level-copy" data-level="children">Ask better.<br />Learn faster.</h1>
-                  <h1 class="level-copy" data-level="everyday">Less guessing.<br />Better prompting.</h1>
-                  <h1 class="level-copy" data-level="technical">Prompt with precision.<br />Control the output.</h1>
-                </div>
-
-                <div class="copy-slot entrance entrance-4">
-                  <p class="lede level-copy" data-level="children">
-                    Friendly prompts, clear explanations and useful ideas for school, creativity and learning.
-                  </p>
-                  <p class="lede level-copy" data-level="everyday">
-                    Everything you need to get more from AI — without the jargon.
-                  </p>
-                  <p class="lede level-copy" data-level="technical">
-                    Structured prompting, constraints, schemas and model-aware techniques for repeatable results.
-                  </p>
-                </div>
-
-                <div class="product-pills entrance entrance-5" aria-label="Promptendium tools">
-                  <span class="level-copy" data-level="children">Learn with AI</span>
-                  <span class="level-copy" data-level="children">Create something</span>
-                  <span class="level-copy" data-level="children">Build a prompt</span>
-
-                  <span class="level-copy" data-level="everyday">Prompt Dictionary</span>
-                  <span class="level-copy" data-level="everyday">Practical Guides</span>
-                  <span class="level-copy" data-level="everyday">Prompt Generator</span>
-
-                  <span class="level-copy" data-level="technical">Prompt patterns</span>
-                  <span class="level-copy" data-level="technical">Model behaviour</span>
-                  <span class="level-copy" data-level="technical">Schema builder</span>
+              <div class="message-stack personalised-copy">
+                <div class="eyebrow entrance entrance-2" id="dynamicEyebrow">Everyday AI, made useful</div>
+                <h1 id="page-title" class="entrance entrance-3">Less guessing.<br />Better prompting.</h1>
+                <p class="lede entrance entrance-4" id="dynamicLede">
+                  Cut down the time spent on emails, planning, admin and repetitive tasks with prompts built for real life.
+                </p>
+                <div class="product-pills entrance entrance-5" aria-label="Recommended Promptendium tools">
+                  <span id="toolOne">Email prompts</span>
+                  <span id="toolTwo">Planning help</span>
+                  <span id="toolThree">Quick summaries</span>
                 </div>
               </div>
 
-              <div class="copy-slot entrance entrance-5">
-                <div class="hero-note level-copy" data-level="children">Simple language. Safe examples. Easy to explore.</div>
-                <div class="hero-note level-copy" data-level="everyday">Clear explanations. Practical prompts. No hype.</div>
-                <div class="hero-note level-copy" data-level="technical">Precise methods. Explicit constraints. Reproducible outputs.</div>
-              </div>
+              <div class="hero-note personalised-copy entrance entrance-5" id="dynamicNote">Less admin. More time for everything else.</div>
             </div>
 
-            <div class="product-stage entrance stage-entrance" aria-label="Promptendium experience preview">
+            <div class="product-stage entrance stage-entrance" aria-label="Personalised Promptendium preview">
               <div class="stage-glow" aria-hidden="true"></div>
 
               <div class="level-scene child-scene" data-scene="children">
                 <div class="child-topline">
-                  <span class="child-badge">Promptendium for learners</span>
+                  <span class="child-badge" id="childBadge">Promptendium for school</span>
                   <span class="child-stars" aria-hidden="true">✦ ★ ✦</span>
                 </div>
-                <h2 class="child-heading">What would you like to discover?</h2>
-                <p class="child-sub">Turn a question, homework topic or idea into a better prompt — then understand the answer.</p>
+                <h2 class="child-heading" id="childHeading">Get schoolwork moving faster.</h2>
+                <p class="child-sub" id="childSub">Plan homework, turn notes into revision material and get unstuck without wasting time.</p>
                 <div class="child-search">
                   <span class="child-search-icon" aria-hidden="true">✦</span>
-                  <span class="child-query dynamic-query" data-query-level="children">Explain photosynthesis like I’m 10</span>
+                  <span class="child-query dynamic-query" data-query-level="children">Turn these notes into revision cards</span>
                   <span class="typing-cursor" aria-hidden="true"></span>
                 </div>
                 <div class="child-cards">
                   <div class="child-card">
-                    <div class="child-icon">?</div>
-                    <strong>Ask</strong>
-                    <span>Turn a question into a clear AI prompt.</span>
+                    <div class="child-icon">✓</div>
+                    <strong id="childCardOneTitle">Plan</strong>
+                    <span id="childCardOneText">Break schoolwork into clear next steps.</span>
                   </div>
                   <div class="child-card">
                     <div class="child-icon">★</div>
-                    <strong>Learn</strong>
-                    <span>Get simple explanations with examples.</span>
+                    <strong id="childCardTwoTitle">Revise</strong>
+                    <span id="childCardTwoText">Make quizzes, cards and study plans.</span>
                   </div>
                   <div class="child-card">
                     <div class="child-icon">✦</div>
-                    <strong>Create</strong>
-                    <span>Stories, quizzes, ideas and projects.</span>
+                    <strong id="childCardThreeTitle">Finish</strong>
+                    <span id="childCardThreeText">Move from stuck to a useful first draft.</span>
                   </div>
                 </div>
               </div>
@@ -152,45 +155,45 @@ const favicon = `${base}favicon.png`;
                 <div class="everyday-top" aria-hidden="true">
                   <span class="everyday-dot"></span><span class="everyday-dot"></span><span class="everyday-dot"></span>
                 </div>
-                <div class="everyday-label">Promptendium</div>
-                <h2 class="everyday-title">Find the right prompt faster.</h2>
+                <div class="everyday-label" id="everydayLabel">Promptendium · Save time</div>
+                <h2 class="everyday-title" id="everydayTitle">Get useful work done faster.</h2>
                 <div class="everyday-search">
-                  <span class="everyday-query dynamic-query" data-query-level="everyday">Search prompts, guides and terms…</span>
+                  <span class="everyday-query dynamic-query" data-query-level="everyday">Summarise these meeting notes into actions</span>
                   <span class="typing-cursor" aria-hidden="true"></span>
                   <span class="everyday-key">⌘ K</span>
                 </div>
                 <div class="everyday-cards">
                   <div class="everyday-card primary">
-                    <strong>Prompt Dictionary</strong>
-                    <span>Browse practical prompts by task, category or letter.</span>
+                    <strong id="everydayCardOneTitle">Quick prompts</strong>
+                    <span id="everydayCardOneText">Start from a proven prompt instead of a blank box.</span>
                     <div class="everyday-purple"></div>
                   </div>
                   <div class="everyday-card">
-                    <strong>Prompting Guides</strong>
-                    <span>Learn the ideas that make prompts easier to write and improve.</span>
+                    <strong id="everydayCardTwoTitle">Planning</strong>
+                    <span id="everydayCardTwoText">Turn messy tasks into useful plans and next steps.</span>
                   </div>
                   <div class="everyday-card">
-                    <strong>AI terminology</strong>
-                    <span>Plain-English definitions for the terms you actually see.</span>
+                    <strong id="everydayCardThreeTitle">Summaries</strong>
+                    <span id="everydayCardThreeText">Reduce long notes and documents to what matters.</span>
                   </div>
                   <div class="everyday-card">
-                    <strong>Prompt Generator</strong>
-                    <span>A guided tool for building prompts around your task.</span>
+                    <strong id="everydayCardFourTitle">Prompt Generator</strong>
+                    <span id="everydayCardFourText">Build a stronger prompt around the job you need done.</span>
                   </div>
                 </div>
               </div>
 
               <div class="level-scene technical-scene" data-scene="technical">
                 <div class="tech-toolbar">
-                  <span class="tech-path">promptendium / workspace / prompt</span>
+                  <span class="tech-path" id="techPath">promptendium / productivity / reusable_prompt</span>
                   <span class="tech-status">validated</span>
                 </div>
                 <div class="tech-body">
                   <div class="tech-editor">
-                    <div class="tech-kicker">Prompt specification</div>
-                    <h2 class="tech-heading">Design for predictable output.</h2>
+                    <div class="tech-kicker" id="techKicker">Reusable prompt systems</div>
+                    <h2 class="tech-heading" id="techHeading">Reduce repeated prompt work.</h2>
                     <div class="tech-query">
-                      <span class="dynamic-query" data-query-level="technical">Create a constrained JSON extraction prompt</span><span class="typing-cursor" aria-hidden="true"></span>
+                      <span class="dynamic-query" data-query-level="technical">Create a reusable extraction prompt with strict output</span><span class="typing-cursor" aria-hidden="true"></span>
                     </div>
                     <div class="tech-code" aria-hidden="true">
                       <div class="tech-line"><span class="tech-ln">01</span><span><span class="tech-keyword">role</span>: <span class="tech-string">"extractor"</span></span></div>
@@ -224,40 +227,278 @@ const favicon = `${base}favicon.png`;
     <script is:inline>
       (() => {
         const root = document.documentElement;
-        const buttons = Array.from(document.querySelectorAll('[data-audience-level]'));
-        const validLevels = ['children', 'everyday', 'technical'];
+        const audienceButtons = Array.from(document.querySelectorAll('[data-audience]'));
+        const goalButtons = Array.from(document.querySelectorAll('[data-goal]'));
+        const validAudiences = ['school', 'student', 'everyday', 'technical'];
+        const validGoals = ['learn', 'save', 'create', 'explore'];
 
-        const applyLevel = (level, save = true, animate = true) => {
-          const nextLevel = validLevels.includes(level) ? level : 'everyday';
-          root.dataset.level = nextLevel;
+        const profiles = {
+          school: {
+            learn: {
+              eyebrow: 'School · Learn',
+              lede: 'Clear explanations, revision help and prompts that make tricky school subjects easier to understand.',
+              note: 'Simple language. Clear examples. Learn at your pace.',
+              tools: ['Explain a topic', 'Quiz me', 'Study prompts'],
+              previewLabel: 'Promptendium for school',
+              previewTitle: 'What do you want to understand?',
+              previewSub: 'Ask about a subject, homework topic or revision question and turn it into a clearer AI prompt.',
+              cards: [['Explain', 'Break a difficult topic into simple steps.'], ['Quiz', 'Test what you know with useful questions.'], ['Revise', 'Turn notes into cards, summaries and plans.']],
+              phrases: ['Explain photosynthesis like I’m 12', 'Quiz me on the solar system', 'Help me understand fractions', 'Turn these notes into revision cards']
+            },
+            save: {
+              eyebrow: 'School · Save time',
+              lede: 'Get unstuck on planning, revision and schoolwork without spending ages figuring out what to ask.',
+              note: 'Spend less time getting started. Keep the thinking yours.',
+              tools: ['Plan homework', 'Summarise notes', 'Revision cards'],
+              previewLabel: 'Promptendium for school',
+              previewTitle: 'Get schoolwork moving faster.',
+              previewSub: 'Plan homework, turn notes into revision material and get unstuck without wasting time.',
+              cards: [['Plan', 'Break schoolwork into clear next steps.'], ['Revise', 'Make quizzes, cards and study plans.'], ['Finish', 'Move from stuck to a useful first draft.']],
+              phrases: ['Turn these notes into revision cards', 'Make me a 30-minute study plan', 'Summarise this chapter simply', 'Help me plan my homework']
+            },
+            create: {
+              eyebrow: 'School · Create',
+              lede: 'Turn ideas into stories, presentations, quizzes and projects with prompts that help you build rather than copy.',
+              note: 'Ideas first. Your work stays yours.',
+              tools: ['Story ideas', 'Project helper', 'Presentation prompts'],
+              previewLabel: 'Promptendium for school',
+              previewTitle: 'Turn an idea into something brilliant.',
+              previewSub: 'Start with a rough idea and use AI to develop a project, story, quiz or presentation.',
+              cards: [['Imagine', 'Generate directions for an idea.'], ['Build', 'Shape the idea into a real project.'], ['Polish', 'Improve clarity without losing your voice.']],
+              phrases: ['Give me three volcano project ideas', 'Help me plan a short presentation', 'Create a quiz about space', 'Help me outline a robot story']
+            },
+            explore: {
+              eyebrow: 'School · Explore',
+              lede: 'Find fun questions, surprising topics and things to try when you are curious or just want something interesting.',
+              note: 'Curious? Pick a direction — or let Promptendium surprise you.',
+              tools: ['Surprise me', 'Fun facts', 'Try a challenge'],
+              previewLabel: 'Promptendium discovery mode',
+              previewTitle: 'What could you discover next?',
+              previewSub: 'Explore interesting questions, mini challenges and unexpected topics without needing to know where to start.',
+              cards: [['Discover', 'Find something you did not know.'], ['Challenge', 'Try a puzzle, quiz or experiment idea.'], ['Create', 'Turn curiosity into something fun.']],
+              phrases: ['Surprise me with something about space', 'Give me a strange science question', 'Teach me an amazing fact', 'Give me a fun 10-minute challenge']
+            }
+          },
+          student: {
+            learn: {
+              eyebrow: 'College / University · Learn',
+              lede: 'Break down difficult material, test your understanding and turn dense notes into clearer study resources.',
+              note: 'Understand the material — do not just generate an answer.',
+              tools: ['Explain concepts', 'Study guides', 'Practice questions'],
+              previewLabel: 'Promptendium · Study',
+              previewTitle: 'Make difficult material easier to work with.',
+              cards: [['Study prompts', 'Turn a topic into a structured learning session.'], ['Explain concepts', 'Unpack difficult material at the right depth.'], ['Practice', 'Generate questions that test understanding.'], ['Study planner', 'Organise revision around your time and priorities.']],
+              phrases: ['Explain this theory at undergraduate level', 'Turn these lecture notes into a study guide', 'Test me on this reading', 'Compare these two concepts clearly']
+            },
+            save: {
+              eyebrow: 'College / University · Save time',
+              lede: 'Speed up note organisation, research planning and routine study tasks while keeping the academic thinking with you.',
+              note: 'Less organising. More time for the work that needs your judgement.',
+              tools: ['Organise notes', 'Research plan', 'Study workflow'],
+              previewLabel: 'Promptendium · Student workflow',
+              previewTitle: 'Spend less time organising the work.',
+              cards: [['Lecture notes', 'Turn rough notes into a usable structure.'], ['Research plan', 'Map questions, sources and next steps.'], ['Study workflow', 'Plan work around deadlines and priorities.'], ['Prompt Generator', 'Create a prompt around the task at hand.']],
+              phrases: ['Organise these lecture notes by theme', 'Create a research plan for this question', 'Build a revision schedule from these deadlines', 'Summarise these sources into key differences']
+            },
+            create: {
+              eyebrow: 'College / University · Create',
+              lede: 'Develop essays, presentations, portfolios and project ideas with prompts that support your thinking rather than replace it.',
+              note: 'Use AI to develop the work, not to outsource the learning.',
+              tools: ['Essay planning', 'Presentations', 'Project ideas'],
+              previewLabel: 'Promptendium · Create',
+              previewTitle: 'Turn a rough academic idea into a clear plan.',
+              cards: [['Essay structure', 'Develop a logical argument and outline.'], ['Presentation', 'Shape material for a clear audience journey.'], ['Project ideas', 'Explore possible directions and constraints.'], ['Refine', 'Improve clarity while preserving your own position.']],
+              phrases: ['Help me structure this essay argument', 'Turn this research into a presentation outline', 'Suggest project directions from this brief', 'Challenge the weaknesses in my thesis']
+            },
+            explore: {
+              eyebrow: 'College / University · Explore',
+              lede: 'Explore research angles, unfamiliar subjects and useful connections before deciding where to go deeper.',
+              note: 'A starting point for curiosity, research and better questions.',
+              tools: ['Research angles', 'New topics', 'Surprise me'],
+              previewLabel: 'Promptendium · Explore',
+              previewTitle: 'Find a direction worth following.',
+              cards: [['Research angles', 'Generate useful questions around a subject.'], ['Connections', 'Link ideas across topics and disciplines.'], ['Reading paths', 'Identify what to understand next.'], ['Surprise me', 'Surface an unexpected direction to investigate.']],
+              phrases: ['Give me five research angles on this topic', 'What should I learn next about this subject?', 'Show connections between these two fields', 'Surprise me with an interesting research question']
+            }
+          },
+          everyday: {
+            learn: {
+              eyebrow: 'Everyday user · Learn',
+              lede: 'Understand unfamiliar topics quickly with prompts that ask for clear explanations, examples and the right amount of detail.',
+              note: 'Plain English when you want it. More detail when you need it.',
+              tools: ['Explain simply', 'Compare options', 'Ask follow-ups'],
+              previewLabel: 'Promptendium · Learn',
+              previewTitle: 'Understand something without the jargon.',
+              cards: [['Explain simply', 'Turn a confusing topic into a useful explanation.'], ['Compare', 'See important differences without the noise.'], ['Ask better', 'Find the follow-up questions that matter.'], ['Guides', 'Learn how to get clearer answers from AI.']],
+              phrases: ['Explain pensions in plain English', 'Compare these two options simply', 'Teach me the basics of this topic', 'What questions should I ask next?']
+            },
+            save: {
+              eyebrow: 'Everyday user · Save time',
+              lede: 'Cut down the time spent on emails, planning, admin and repetitive tasks with prompts built for real life.',
+              note: 'Less admin. More time for everything else.',
+              tools: ['Email prompts', 'Planning help', 'Quick summaries'],
+              previewLabel: 'Promptendium · Save time',
+              previewTitle: 'Get useful work done faster.',
+              cards: [['Quick prompts', 'Start from a proven prompt instead of a blank box.'], ['Planning', 'Turn messy tasks into useful plans and next steps.'], ['Summaries', 'Reduce long notes and documents to what matters.'], ['Prompt Generator', 'Build a stronger prompt around the job you need done.']],
+              phrases: ['Summarise these meeting notes into actions', 'Write a polite follow-up email', 'Plan my week from this task list', 'Turn this long message into key points']
+            },
+            create: {
+              eyebrow: 'Everyday user · Create',
+              lede: 'Turn rough ideas into clearer writing, plans and creative directions without needing to know special prompting techniques.',
+              note: 'Start rough. Promptendium helps you shape it.',
+              tools: ['Writing prompts', 'Brainstorm ideas', 'Build a plan'],
+              previewLabel: 'Promptendium · Create',
+              previewTitle: 'Give an idea somewhere useful to go.',
+              cards: [['Brainstorm', 'Generate useful directions without endless lists.'], ['Write', 'Create a strong first draft from your intent.'], ['Plan', 'Turn an idea into clear steps.'], ['Improve', 'Refine tone, structure and clarity.']],
+              phrases: ['Help me brainstorm names for this project', 'Turn these notes into a clear first draft', 'Create a simple plan for this idea', 'Make this writing clearer and warmer']
+            },
+            explore: {
+              eyebrow: 'Everyday user · Explore',
+              lede: 'Discover useful and unexpected things AI can help with when you are curious, experimenting or simply bored.',
+              note: 'No task in mind? That is a perfectly good place to start.',
+              tools: ['Surprise me', 'Try something useful', 'Explore prompts'],
+              previewLabel: 'Promptendium · Explore',
+              previewTitle: 'See what AI can actually be useful for.',
+              cards: [['Surprise me', 'Get one interesting thing to try right now.'], ['Useful ideas', 'Discover tasks AI can genuinely help with.'], ['Prompt trails', 'Follow one idea into the next.'], ['Explore', 'Browse without needing a specific goal.']],
+              phrases: ['Surprise me with something useful', 'Give me an interesting thing to try with AI', 'Show me a prompt I would not think of', 'I am bored — give me a challenge']
+            }
+          },
+          technical: {
+            learn: {
+              eyebrow: 'Technical user · Learn',
+              lede: 'Study prompting patterns, model behaviour, evaluation concepts and structured-output techniques at implementation depth.',
+              note: 'Mechanisms, trade-offs and failure modes — not just prompt recipes.',
+              tools: ['Prompt patterns', 'Model behaviour', 'Evaluation'],
+              previewLabel: 'technical / learning',
+              previewTitle: 'Understand the behaviour behind the output.',
+              techPath: 'promptendium / learn / prompt_systems',
+              phrases: ['Compare zero-shot and few-shot prompting', 'Explain structured output failure modes', 'Analyse this system prompt pattern', 'Show trade-offs in retrieval-grounded prompting']
+            },
+            save: {
+              eyebrow: 'Technical user · Save time',
+              lede: 'Build reusable prompt structures, schemas and validation patterns that reduce repeated prompt engineering work.',
+              note: 'Reusable components. Explicit contracts. Fewer manual retries.',
+              tools: ['Reusable prompts', 'Schemas', 'Validation'],
+              previewLabel: 'technical / productivity',
+              previewTitle: 'Reduce repeated prompt work.',
+              techPath: 'promptendium / productivity / reusable_prompt',
+              phrases: ['Create a reusable extraction prompt with strict output', 'Generate a JSON schema prompt template', 'Build a validation-aware system prompt', 'Refactor this prompt into reusable components']
+            },
+            create: {
+              eyebrow: 'Technical user · Create',
+              lede: 'Design system prompts, tool instructions, output contracts and constrained workflows with more control over behaviour.',
+              note: 'Design the interface between intent, model and output.',
+              tools: ['System prompts', 'Output contracts', 'Tool workflows'],
+              previewLabel: 'technical / build',
+              previewTitle: 'Specify behaviour before you run it.',
+              techPath: 'promptendium / build / specification',
+              phrases: ['Design a constrained system prompt', 'Specify a strict structured output contract', 'Create tool-calling instructions with fallbacks', 'Build a retrieval-grounded response policy']
+            },
+            explore: {
+              eyebrow: 'Technical user · Explore',
+              lede: 'Test prompting strategies, compare patterns and explore model behaviour before committing to an implementation approach.',
+              note: 'Experiment deliberately. Keep the useful parts reproducible.',
+              tools: ['Experiments', 'Pattern comparison', 'Edge cases'],
+              previewLabel: 'technical / explore',
+              previewTitle: 'Probe the edges of prompt behaviour.',
+              techPath: 'promptendium / explore / experiments',
+              phrases: ['Compare three prompting strategies for this task', 'Design an adversarial prompt test set', 'Explore edge cases for this output schema', 'Suggest an evaluation matrix for this prompt']
+            }
+          }
+        };
 
-          buttons.forEach((button) => {
-            button.setAttribute('aria-pressed', String(button.dataset.audienceLevel === nextLevel));
-          });
+        window.PromptendiumProfiles = profiles;
 
-          if (save) {
-            try {
-              localStorage.setItem('promptendium-level', nextLevel);
-            } catch {}
+        const deriveLevel = (audience) => audience === 'school' ? 'children' : audience === 'technical' ? 'technical' : 'everyday';
+        const setText = (id, value) => {
+          const node = document.getElementById(id);
+          if (node && typeof value === 'string') node.textContent = value;
+        };
+
+        const updateCards = (prefix, cards, count) => {
+          for (let index = 0; index < Math.min(cards.length, count); index += 1) {
+            const number = ['One', 'Two', 'Three', 'Four'][index];
+            setText(`${prefix}Card${number}Title`, cards[index][0]);
+            setText(`${prefix}Card${number}Text`, cards[index][1]);
+          }
+        };
+
+        const renderProfile = (audience, goal, animate = true) => {
+          const profile = profiles[audience][goal];
+          const level = deriveLevel(audience);
+          root.dataset.audience = audience;
+          root.dataset.goal = goal;
+          root.dataset.level = level;
+
+          audienceButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.audience === audience)));
+          goalButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.goal === goal)));
+
+          const changingNodes = document.querySelectorAll('.personalised-copy');
+          if (animate) changingNodes.forEach((node) => node.classList.add('is-changing'));
+
+          setText('dynamicEyebrow', profile.eyebrow);
+          setText('dynamicLede', profile.lede);
+          setText('dynamicNote', profile.note);
+          setText('toolOne', profile.tools[0]);
+          setText('toolTwo', profile.tools[1]);
+          setText('toolThree', profile.tools[2]);
+
+          if (audience === 'school') {
+            setText('childBadge', profile.previewLabel);
+            setText('childHeading', profile.previewTitle);
+            setText('childSub', profile.previewSub);
+            updateCards('child', profile.cards, 3);
+          } else if (audience === 'technical') {
+            setText('techKicker', profile.previewLabel);
+            setText('techHeading', profile.previewTitle);
+            setText('techPath', profile.techPath);
+          } else {
+            setText('everydayLabel', profile.previewLabel);
+            setText('everydayTitle', profile.previewTitle);
+            updateCards('everyday', profile.cards, 4);
           }
 
           if (animate) {
-            document.querySelectorAll(`.level-copy[data-level="${nextLevel}"], .level-scene[data-scene="${nextLevel}"]`).forEach((node) => {
-              node.classList.remove('audience-transition');
-              void node.offsetWidth;
-              node.classList.add('audience-transition');
-              window.setTimeout(() => node.classList.remove('audience-transition'), 900);
-            });
+            window.setTimeout(() => changingNodes.forEach((node) => node.classList.remove('is-changing')), 180);
+            const scene = document.querySelector(`.level-scene[data-scene="${level}"]`);
+            if (scene) {
+              scene.classList.remove('audience-transition');
+              void scene.offsetWidth;
+              scene.classList.add('audience-transition');
+              window.setTimeout(() => scene.classList.remove('audience-transition'), 900);
+            }
           }
 
-          window.dispatchEvent(new CustomEvent('promptendium-level-change', { detail: { level: nextLevel } }));
+          window.dispatchEvent(new CustomEvent('promptendium-personalisation-change', {
+            detail: { audience, goal, level, profile }
+          }));
         };
 
-        buttons.forEach((button) => {
-          button.addEventListener('click', () => applyLevel(button.dataset.audienceLevel));
+        const applyPersonalisation = (audience, goal, save = true, animate = true) => {
+          const nextAudience = validAudiences.includes(audience) ? audience : 'everyday';
+          const nextGoal = validGoals.includes(goal) ? goal : 'save';
+          const level = deriveLevel(nextAudience);
+
+          if (save) {
+            try {
+              localStorage.setItem('promptendium-audience', nextAudience);
+              localStorage.setItem('promptendium-goal', nextGoal);
+              localStorage.setItem('promptendium-level', level);
+            } catch {}
+          }
+
+          renderProfile(nextAudience, nextGoal, animate);
+        };
+
+        audienceButtons.forEach((button) => {
+          button.addEventListener('click', () => applyPersonalisation(button.dataset.audience, root.dataset.goal));
         });
 
-        applyLevel(root.dataset.level || 'everyday', false, false);
+        goalButtons.forEach((button) => {
+          button.addEventListener('click', () => applyPersonalisation(root.dataset.audience, button.dataset.goal));
+        });
+
+        applyPersonalisation(root.dataset.audience || 'everyday', root.dataset.goal || 'save', false, false);
       })();
     </script>
 
@@ -294,30 +535,9 @@ const favicon = `${base}favicon.png`;
     <script is:inline>
       (() => {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const phrasesByLevel = {
-          children: [
-            'Explain photosynthesis like I’m 10',
-            'Help me make a volcano project',
-            'Quiz me on the solar system',
-            'Write a funny story about a robot'
-          ],
-          everyday: [
-            'Search prompts, guides and terms…',
-            'Write a professional follow-up email',
-            'Summarise these meeting notes',
-            'Create a project planning prompt'
-          ],
-          technical: [
-            'Create a constrained JSON extraction prompt',
-            'Design a retrieval-grounded system prompt',
-            'Compare few-shot prompting strategies',
-            'Specify a strict structured output contract'
-          ]
-        };
-
         let timer = null;
         let query = null;
-        let phrases = phrasesByLevel.everyday;
+        let phrases = [];
         let phraseIndex = 0;
         let charIndex = 0;
         let deleting = true;
@@ -327,7 +547,7 @@ const favicon = `${base}favicon.png`;
         };
 
         const tick = () => {
-          if (!query) return;
+          if (!query || !phrases.length) return;
           const phrase = phrases[phraseIndex];
 
           if (deleting) {
@@ -358,22 +578,26 @@ const favicon = `${base}favicon.png`;
           schedule(tick, 105);
         };
 
-        const restart = (level) => {
+        const restart = (level, nextPhrases) => {
           if (timer) window.clearTimeout(timer);
-          phrases = phrasesByLevel[level] || phrasesByLevel.everyday;
-          query = document.querySelector(`.dynamic-query[data-query-level="${level}"]`);
+          phrases = Array.isArray(nextPhrases) ? nextPhrases : [];
+          query = document.querySelector(`.level-scene[data-scene="${level}"] .dynamic-query`);
           phraseIndex = 0;
-          charIndex = phrases[0].length;
+          charIndex = phrases[0]?.length || 0;
           deleting = true;
-          if (query) query.textContent = phrases[0];
+          if (query && phrases[0]) query.textContent = phrases[0];
 
-          if (!reduceMotion && query) schedule(tick, 4200);
+          if (!reduceMotion && query && phrases.length) schedule(tick, 4200);
         };
 
-        restart(document.documentElement.dataset.level || 'everyday');
+        const audience = document.documentElement.dataset.audience || 'everyday';
+        const goal = document.documentElement.dataset.goal || 'save';
+        const level = document.documentElement.dataset.level || 'everyday';
+        const initialProfile = window.PromptendiumProfiles?.[audience]?.[goal];
+        restart(level, initialProfile?.phrases || []);
 
-        window.addEventListener('promptendium-level-change', (event) => {
-          restart(event.detail?.level || 'everyday');
+        window.addEventListener('promptendium-personalisation-change', (event) => {
+          restart(event.detail?.level || 'everyday', event.detail?.profile?.phrases || []);
         });
       })();
     </script>
