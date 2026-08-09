@@ -16,9 +16,9 @@
     }
   });
 
-  screens.forEach((screen) => {
-    const next = screen.nextElementSibling;
-    if (!next?.classList.contains('viewport-screen')) return;
+  screens.forEach((screen, index) => {
+    const next = screens[index + 1];
+    if (!next) return;
     if (screen.querySelector(':scope > .viewport-next')) return;
 
     const link = document.createElement('a');
