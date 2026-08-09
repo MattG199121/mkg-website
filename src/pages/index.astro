@@ -123,11 +123,11 @@ const favicon = `${base}favicon.png`;
             if (charIndex === 0) {
               deleting = false;
               phraseIndex = (phraseIndex + 1) % phrases.length;
-              window.setTimeout(tick, 520);
+              window.setTimeout(tick, 700);
               return;
             }
 
-            window.setTimeout(tick, 42);
+            window.setTimeout(tick, 58);
             return;
           }
 
@@ -137,14 +137,14 @@ const favicon = `${base}favicon.png`;
 
           if (charIndex === nextPhrase.length) {
             deleting = true;
-            window.setTimeout(tick, 2500);
+            window.setTimeout(tick, 3400);
             return;
           }
 
-          window.setTimeout(tick, 70);
+          window.setTimeout(tick, 95);
         };
 
-        window.setTimeout(tick, 3000);
+        window.setTimeout(tick, 4000);
       })();
     </script>
   </body>
