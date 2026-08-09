@@ -35,6 +35,10 @@
     }
   };
 
+  const parentAudienceButton = (value) => document.querySelector(`.standard-site-shell [data-audience="${value}"]`);
+  const parentGoalButton = (value) => document.querySelector(`.standard-site-shell [data-goal="${value}"]`);
+  const parentThemeButton = () => document.querySelector('.standard-site-shell #themeToggle');
+
   roots.forEach((root) => {
     const cards = [...root.querySelectorAll('[data-mission]')];
     const intro = root.querySelector('[data-goal-intro]');
@@ -45,9 +49,25 @@
     const privacy = root.querySelector('.child-privacy');
     const privacyPopover = root.querySelector('[data-privacy-popover]');
     const quickButtons = [...root.querySelectorAll('[data-quick]')];
+    const profileTrigger = root.querySelector('[data-child-profile-trigger]');
+    const profilePopover = root.querySelector('[data-child-profile-popover]');
+    const childAudienceButtons = [...root.querySelectorAll('[data-child-audience-target]')];
+    const childGoalButtons = [...root.querySelectorAll('[data-child-goal-target]')];
+    const childThemeToggle = root.querySelector('[data-child-theme-toggle]');
 
-    const preferredGoal = root.dataset.goal || 'learn';
+    let preferredGoal = root.dataset.goal || document.documentElement.dataset.goal || 'learn';
     let active = preferredGoal === 'save' ? 'learn' : preferredGoal;
+
+    const syncProfileControls = () => {
+      const audience = document.documentElement.dataset.audience || 'school';
+      const goal = document.documentElement.dataset.goal || preferredGoal;
+      childAudienceButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.childAudienceTarget === audience));
+      });
+      childGoalButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.childGoalTarget === goal));
+      });
+    };
 
     const render = (key, options = {}) => {
       const data = content[key] || content.learn;
@@ -62,27 +82,33 @@
       if (intro) intro.textContent = options.keepIntro && content[preferredGoal] ? content[preferredGoal].intro : data.intro;
       if (weak) weak.textContent = data.weak;
       if (better) {
-        better.animate?.([
-          { opacity: 0.2, transform: 'translateY(4px)' },
-          { opacity: 1, transform: 'translateY(0)' }
-        ], { duration: 280, easing: 'ease-out' });
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          better.animate?.([
+            { opacity: 0.2, transform: 'translateY(4px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+          ], { duration: 280, easing: 'ease-out' });
+        }
         better.textContent = data.better;
       }
       blocks.forEach((block, i) => { if (block) block.textContent = data.blocks[i]; });
     };
 
-    cards.forEach((card) => card.addEventListener('click', () => render(card.dataset.mission)));
+    const applyGoal = (goal) => {
+      preferredGoal = content[goal] ? goal : 'learn';
+      root.dataset.goal = preferredGoal;
 
-    if (content[preferredGoal]) {
       if (preferredGoal === 'save') {
         if (intro) intro.textContent = content.save.intro;
         render('learn', { keepIntro: true });
       } else {
         render(preferredGoal);
       }
-    } else {
-      render('learn');
-    }
+
+      syncProfileControls();
+    };
+
+    cards.forEach((card) => card.addEventListener('click', () => render(card.dataset.mission)));
+    applyGoal(preferredGoal);
 
     const remixVersions = {
       learn: [
@@ -130,8 +156,63 @@
       privacyTimer = setTimeout(() => { privacyPopover.hidden = true; }, 6500);
     });
 
-    root.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && privacyPopover) privacyPopover.hidden = true;
+    const closeProfile = () => {
+      if (!profilePopover || !profileTrigger) return;
+      profilePopover.hidden = true;
+      profileTrigger.setAttribute('aria-expanded', 'false');
+    };
+
+    profileTrigger?.addEventListener('click', () => {
+      if (!profilePopover) return;
+      const opening = profilePopover.hidden;
+      profilePopover.hidden = !opening;
+      profileTrigger.setAttribute('aria-expanded', String(opening));
+      if (opening) syncProfileControls();
     });
+
+    childAudienceButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.childAudienceTarget;
+        const matchingParentButton = parentAudienceButton(target);
+        if (matchingParentButton) matchingParentButton.click();
+        closeProfile();
+      });
+    });
+
+    childGoalButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.childGoalTarget;
+        const matchingParentButton = parentGoalButton(target);
+        if (matchingParentButton) matchingParentButton.click();
+        applyGoal(target);
+        closeProfile();
+      });
+    });
+
+    childThemeToggle?.addEventListener('click', () => {
+      parentThemeButton()?.click();
+      closeProfile();
+    });
+
+    window.addEventListener('promptendium-personalisation-change', (event) => {
+      const nextGoal = event.detail?.goal;
+      if (nextGoal && content[nextGoal]) applyGoal(nextGoal);
+      syncProfileControls();
+    });
+
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        if (privacyPopover) privacyPopover.hidden = true;
+        closeProfile();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!profilePopover || profilePopover.hidden || !profileTrigger) return;
+      if (profilePopover.contains(event.target) || profileTrigger.contains(event.target)) return;
+      closeProfile();
+    });
+
+    syncProfileControls();
   });
 })();
