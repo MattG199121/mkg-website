@@ -1,0 +1,50 @@
+---
+import EverydayExperience from '../components/EverydayExperience.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Promptendium for everyday users — practical AI help without the complicated bits." />
+    <meta name="theme-color" content="#F8F3E8" />
+    <title>Promptendium Everyday Experience</title>
+    <script is:inline>
+      (() => {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const requested = params.get('theme');
+          const saved = localStorage.getItem('promptendium-theme');
+          const theme = requested === 'dark' || requested === 'light'
+            ? requested
+            : saved === 'dark' || saved === 'light'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <style is:global>
+      html,
+      body {
+        width: 100%;
+        min-width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        min-height: 100dvh;
+      }
+    </style>
+  </head>
+  <body>
+    <EverydayExperience goal="save" />
+  </body>
+</html>
