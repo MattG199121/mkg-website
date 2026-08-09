@@ -1,0 +1,249 @@
+:root {
+  color-scheme: light;
+  --theme-bg: #f7f6f2;
+  --theme-text: #151515;
+  --theme-muted: #74716b;
+  --theme-line: #dedbd4;
+  --theme-header: rgba(247, 246, 242, .96);
+  --theme-pill: rgba(255, 255, 255, .66);
+  --theme-pill-hover: rgba(255, 255, 255, .94);
+  --theme-pill-text: #4d4943;
+  --theme-preview: #111111;
+  --theme-window: #f8f7f3;
+  --theme-card: #ffffff;
+  --theme-card-border: #ddd9d1;
+  --theme-card-copy: #807c75;
+  --theme-search: #ffffff;
+  --theme-search-border: #d9d6cf;
+  --theme-key: #eeece6;
+  --theme-key-text: #6d6962;
+  --theme-grid-dot: rgba(21, 21, 21, .11);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --theme-bg: #0f0f10;
+  --theme-text: #f4f1eb;
+  --theme-muted: #aaa59d;
+  --theme-line: #2c2b2f;
+  --theme-header: rgba(15, 15, 16, .94);
+  --theme-pill: rgba(255, 255, 255, .055);
+  --theme-pill-hover: rgba(255, 255, 255, .09);
+  --theme-pill-text: #d6d1c9;
+  --theme-preview: #080809;
+  --theme-window: #18181a;
+  --theme-card: #202023;
+  --theme-card-border: #303034;
+  --theme-card-copy: #aaa59e;
+  --theme-search: #202023;
+  --theme-search-border: #343438;
+  --theme-key: #2b2b2f;
+  --theme-key-text: #bdb7ae;
+  --theme-grid-dot: rgba(255, 255, 255, .075);
+}
+
+html,
+body,
+.site-header,
+.product-pills span,
+.product-stage,
+.mock-window,
+.mock-top,
+.mock-search,
+.mock-key,
+.mock-card {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 520ms;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+
+html,
+body {
+  background: var(--theme-bg);
+  color: var(--theme-text);
+}
+
+.site-header {
+  background: var(--theme-header);
+  border-bottom-color: var(--theme-line);
+}
+
+.header-inner {
+  justify-content: space-between;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 54px;
+  height: 30px;
+  flex: 0 0 auto;
+  border: 1px solid var(--theme-line);
+  border-radius: 999px;
+  padding: 0;
+  background: var(--theme-pill);
+  color: var(--theme-text);
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 360ms ease, border-color 360ms ease, transform 260ms var(--ease-out);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid rgba(109, 74, 255, .28);
+  outline-offset: 4px;
+}
+
+.theme-toggle-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7px;
+  font-size: 11px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.theme-toggle-sun,
+.theme-toggle-moon {
+  opacity: .45;
+  transition: opacity 320ms ease;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--theme-text);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .15);
+  transition: transform 420ms var(--ease-out), background-color 420ms ease;
+}
+
+html[data-theme="dark"] .theme-toggle-thumb {
+  transform: translateX(24px);
+}
+
+html:not([data-theme="dark"]) .theme-toggle-sun,
+html[data-theme="dark"] .theme-toggle-moon {
+  opacity: 1;
+}
+
+.hero::before {
+  background-image: radial-gradient(circle at 1px 1px, var(--theme-grid-dot) 1px, transparent 0);
+}
+
+.lede {
+  color: var(--theme-muted);
+}
+
+.product-pills span {
+  color: var(--theme-pill-text);
+  border-color: var(--theme-line);
+  background: var(--theme-pill);
+}
+
+.product-pills span:hover {
+  background: var(--theme-pill-hover);
+}
+
+.hero-note {
+  color: var(--theme-muted);
+}
+
+.product-stage {
+  background: var(--theme-preview);
+}
+
+.mock-window {
+  background: var(--theme-window);
+}
+
+.mock-top {
+  border-bottom-color: var(--theme-card-border);
+}
+
+.mock-dot {
+  background: var(--theme-card-border);
+}
+
+.mock-label,
+.mock-search,
+.mock-card span {
+  color: var(--theme-card-copy);
+}
+
+.mock-search {
+  background: var(--theme-search);
+  border-color: var(--theme-search-border);
+}
+
+.mock-key {
+  background: var(--theme-key);
+  color: var(--theme-key-text);
+}
+
+.mock-card {
+  background: var(--theme-card);
+  border-color: var(--theme-card-border);
+}
+
+.mock-card.dark {
+  background: #151515;
+  border-color: #151515;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .mock-card.dark {
+  background: #09090a;
+  border-color: #2a2a2d;
+}
+
+html[data-theme="dark"] .mock-title,
+html[data-theme="dark"] .mock-card strong {
+  color: #f4f1eb;
+}
+
+html[data-theme="dark"] .brand img {
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 600px) {
+  .theme-toggle {
+    width: 50px;
+    height: 28px;
+  }
+
+  .theme-toggle-thumb {
+    width: 20px;
+    height: 20px;
+  }
+
+  html[data-theme="dark"] .theme-toggle-thumb {
+    transform: translateX(22px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .site-header,
+  .theme-toggle,
+  .theme-toggle-thumb,
+  .product-pills span,
+  .product-stage,
+  .mock-window,
+  .mock-top,
+  .mock-search,
+  .mock-key,
+  .mock-card {
+    transition-duration: .01ms !important;
+  }
+}
