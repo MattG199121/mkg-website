@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/animation-slow.css';
+import '../styles/theme.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -13,8 +14,19 @@ const favicon = `${base}favicon.png`;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Promptendium — The AI Prompt Dictionary & Guide</title>
     <meta name="description" content="Find better AI prompts, understand why they work and learn how to write clearer prompts with Promptendium." />
-    <meta name="theme-color" content="#F7F6F2" />
+    <meta name="theme-color" content="#F7F6F2" id="themeColor" />
     <link rel="icon" type="image/png" href={favicon} />
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem('promptendium-theme');
+          const theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="page-shell">
@@ -23,6 +35,14 @@ const favicon = `${base}favicon.png`;
           <a class="brand" href={base} aria-label="Promptendium home">
             <img src={logo} alt="Promptendium — The reference for better AI prompts." />
           </a>
+
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+            <span class="theme-toggle-track" aria-hidden="true">
+              <span class="theme-toggle-sun">☀</span>
+              <span class="theme-toggle-moon">☾</span>
+            </span>
+            <span class="theme-toggle-thumb" aria-hidden="true"></span>
+          </button>
         </div>
       </header>
 
@@ -90,6 +110,36 @@ const favicon = `${base}favicon.png`;
         </section>
       </main>
     </div>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const toggle = document.getElementById('themeToggle');
+        const themeColor = document.getElementById('themeColor');
+
+        if (!toggle) return;
+
+        const applyTheme = (theme, save = true) => {
+          const dark = theme === 'dark';
+          root.dataset.theme = dark ? 'dark' : 'light';
+          toggle.setAttribute('aria-pressed', String(dark));
+          toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+          if (themeColor) themeColor.setAttribute('content', dark ? '#0F0F10' : '#F7F6F2');
+
+          if (save) {
+            try {
+              localStorage.setItem('promptendium-theme', dark ? 'dark' : 'light');
+            } catch {}
+          }
+        };
+
+        applyTheme(root.dataset.theme || 'light', false);
+
+        toggle.addEventListener('click', () => {
+          applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+        });
+      })();
+    </script>
 
     <script is:inline>
       (() => {
