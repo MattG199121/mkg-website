@@ -41,18 +41,6 @@ const favicon = `${base}favicon.png`;
             <img src={logo} alt="Promptendium — The reference for better AI prompts." />
           </a>
 
-          <div class="audience-switcher" role="group" aria-label="Choose your Promptendium level">
-            <button class="audience-option" type="button" data-audience-level="children" aria-pressed="false">
-              <span class="level-full">Children</span><span class="level-short">Kids</span>
-            </button>
-            <button class="audience-option" type="button" data-audience-level="everyday" aria-pressed="true">
-              <span class="level-full">Non-technical</span><span class="level-short">Everyday</span>
-            </button>
-            <button class="audience-option" type="button" data-audience-level="technical" aria-pressed="false">
-              <span class="level-full">Technical</span><span class="level-short">Tech</span>
-            </button>
-          </div>
-
           <div class="header-actions">
             <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
               <span class="theme-toggle-track" aria-hidden="true">
@@ -69,15 +57,24 @@ const favicon = `${base}favicon.png`;
         <section class="hero" aria-labelledby="page-title">
           <div class="wrap hero-grid">
             <div class="hero-copy">
-              <div class="copy-slot entrance entrance-1">
+              <div class="audience-row entrance entrance-1">
+                <span class="audience-label">I am a</span>
+                <div class="audience-switcher" role="group" aria-label="Choose your Promptendium level">
+                  <button class="audience-option" type="button" data-audience-level="children" aria-pressed="false">Child</button>
+                  <button class="audience-option" type="button" data-audience-level="everyday" aria-pressed="true">Non-technical person</button>
+                  <button class="audience-option" type="button" data-audience-level="technical" aria-pressed="false">Technical person</button>
+                </div>
+              </div>
+
+              <div class="copy-slot entrance entrance-2">
                 <div class="eyebrow level-copy" data-level="children">AI prompting made simple</div>
                 <div class="eyebrow level-copy" data-level="everyday">Practical AI prompting</div>
                 <div class="eyebrow level-copy" data-level="technical">Technical prompting reference</div>
               </div>
 
-              <h1 id="page-title" class="entrance entrance-2">Less guessing.<br />Better prompting.</h1>
+              <h1 id="page-title" class="entrance entrance-3">Less guessing.<br />Better prompting.</h1>
 
-              <div class="copy-slot entrance entrance-3">
+              <div class="copy-slot entrance entrance-4">
                 <p class="lede level-copy" data-level="children">
                   Simple prompts and easy explanations to help younger users get better results from AI.
                 </p>
@@ -89,7 +86,7 @@ const favicon = `${base}favicon.png`;
                 </p>
               </div>
 
-              <div class="product-pills entrance entrance-4" aria-label="Promptendium products">
+              <div class="product-pills entrance entrance-5" aria-label="Promptendium products">
                 <span>Prompt Dictionary</span>
                 <span>Practical Guides</span>
                 <span>Prompt Generator</span>
