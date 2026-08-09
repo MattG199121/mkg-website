@@ -17,7 +17,7 @@ const favicon = `${base}favicon.png`;
   </head>
   <body>
     <div class="page-shell">
-      <header class="site-header">
+      <header class="site-header entrance header-entrance">
         <div class="wrap header-inner">
           <a class="brand" href={base} aria-label="Promptendium home">
             <img src={logo} alt="Promptendium — The reference for better AI prompts." />
@@ -29,22 +29,23 @@ const favicon = `${base}favicon.png`;
         <section class="hero" aria-labelledby="page-title">
           <div class="wrap hero-grid">
             <div class="hero-copy">
-              <div class="eyebrow">Independent AI prompting reference</div>
-              <h1 id="page-title">The AI Prompt Dictionary &amp; Guide.</h1>
-              <p class="lede">
+              <div class="eyebrow entrance entrance-1">Independent AI prompting reference</div>
+              <h1 id="page-title" class="entrance entrance-2">The AI Prompt Dictionary &amp; Guide.</h1>
+              <p class="lede entrance entrance-3">
                 Find useful prompts, understand the language behind AI prompting and learn how to get clearer results — without unnecessary jargon.
               </p>
 
-              <div class="product-pills" aria-label="Promptendium products">
+              <div class="product-pills entrance entrance-4" aria-label="Promptendium products">
                 <span>Prompt Dictionary</span>
                 <span>Practical Guides</span>
                 <span>Prompt Generator</span>
               </div>
 
-              <div class="hero-note">Clear explanations. Practical prompts. No hype.</div>
+              <div class="hero-note entrance entrance-5">Clear explanations. Practical prompts. No hype.</div>
             </div>
 
-            <div class="product-stage" aria-label="Promptendium product preview">
+            <div class="product-stage entrance stage-entrance" aria-label="Promptendium product preview">
+              <div class="stage-glow" aria-hidden="true"></div>
               <div class="mock-window">
                 <div class="mock-top" aria-hidden="true">
                   <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
@@ -54,8 +55,8 @@ const favicon = `${base}favicon.png`;
                   <div class="mock-label">Promptendium</div>
                   <div class="mock-title">Find the right prompt faster.</div>
 
-                  <div class="mock-search">
-                    <span>Search prompts, guides and terms…</span>
+                  <div class="mock-search" aria-label="Animated Promptendium search example">
+                    <span class="mock-query"><span id="mockQuery">Search prompts, guides and terms…</span><span class="typing-cursor" aria-hidden="true"></span></span>
                     <span class="mock-key">⌘ K</span>
                   </div>
 
@@ -88,5 +89,62 @@ const favicon = `${base}favicon.png`;
         </section>
       </main>
     </div>
+
+    <script is:inline>
+      (() => {
+        const query = document.getElementById('mockQuery');
+        if (!query) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const phrases = [
+          'Search prompts, guides and terms…',
+          'Write a professional follow-up email',
+          'Explain context windows simply',
+          'Create a project planning prompt'
+        ];
+
+        if (reduceMotion) {
+          query.textContent = phrases[0];
+          return;
+        }
+
+        let phraseIndex = 0;
+        let charIndex = phrases[0].length;
+        let deleting = true;
+
+        const tick = () => {
+          const phrase = phrases[phraseIndex];
+
+          if (deleting) {
+            charIndex = Math.max(0, charIndex - 1);
+            query.textContent = phrase.slice(0, charIndex);
+
+            if (charIndex === 0) {
+              deleting = false;
+              phraseIndex = (phraseIndex + 1) % phrases.length;
+              window.setTimeout(tick, 360);
+              return;
+            }
+
+            window.setTimeout(tick, 24);
+            return;
+          }
+
+          const nextPhrase = phrases[phraseIndex];
+          charIndex = Math.min(nextPhrase.length, charIndex + 1);
+          query.textContent = nextPhrase.slice(0, charIndex);
+
+          if (charIndex === nextPhrase.length) {
+            deleting = true;
+            window.setTimeout(tick, 1700);
+            return;
+          }
+
+          window.setTimeout(tick, 42);
+        };
+
+        window.setTimeout(tick, 2200);
+      })();
+    </script>
   </body>
 </html>
