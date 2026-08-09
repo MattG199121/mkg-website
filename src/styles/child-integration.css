@@ -1,0 +1,139 @@
+/* Integration only. Keeps the supplied ChildExperience visual design intact. */
+
+.child-experience-shell {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+html[data-audience="school"] .child-experience-shell {
+  display: block;
+}
+
+html[data-audience="school"] .standard-site-shell {
+  display: none;
+}
+
+.standard-site-shell {
+  width: 100%;
+  height: 100%;
+}
+
+/* The supplied visible chip keeps the same appearance; it simply becomes interactive. */
+.child-experience .child-mode-chip {
+  appearance: none;
+  cursor: pointer;
+  color: var(--ce-muted);
+}
+
+.child-experience .child-mode-chip:focus-visible {
+  outline: 3px solid rgba(109, 74, 255, .38);
+  outline-offset: 3px;
+}
+
+.child-profile-popover {
+  position: absolute;
+  z-index: 20;
+  top: clamp(64px, 7vw, 82px);
+  right: clamp(18px, 2.2vw, 32px);
+  width: min(390px, calc(100% - 36px));
+  padding: 16px;
+  border: 1px solid var(--ce-border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .94);
+  color: var(--ce-ink);
+  box-shadow: 0 18px 50px rgba(39, 34, 71, .16);
+  backdrop-filter: blur(18px);
+}
+
+html[data-theme="dark"] .child-profile-popover {
+  background: rgba(30, 32, 48, .96);
+}
+
+.child-profile-popover[hidden] {
+  display: none;
+}
+
+.child-profile-popover__title {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.child-profile-popover__group + .child-profile-popover__group {
+  margin-top: 12px;
+}
+
+.child-profile-popover__label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ce-muted);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.child-profile-popover__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.child-profile-popover__options button,
+.child-profile-popover__theme {
+  min-height: 38px;
+  border: 1px solid var(--ce-border);
+  border-radius: 12px;
+  background: var(--ce-card);
+  color: var(--ce-ink);
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.child-profile-popover__options button:hover,
+.child-profile-popover__theme:hover {
+  transform: translateY(-1px);
+  border-color: rgba(109, 74, 255, .3);
+}
+
+.child-profile-popover__options button[aria-pressed="true"] {
+  border-color: rgba(109, 74, 255, .42);
+  background: rgba(109, 74, 255, .1);
+  color: var(--ce-violet);
+}
+
+.child-profile-popover__theme {
+  width: 100%;
+  margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+  .child-profile-popover {
+    top: 58px;
+    padding: 13px;
+    border-radius: 16px;
+  }
+
+  .child-profile-popover__options button,
+  .child-profile-popover__theme {
+    min-height: 34px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .child-profile-popover__options button,
+  .child-profile-popover__theme {
+    transition: none !important;
+  }
+}
