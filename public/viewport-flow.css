@@ -17,6 +17,55 @@ html {
   flex-direction: column;
 }
 
+/* Homepage: keep the opening hero inside one visible viewport. */
+main#top > .hero.viewport-screen {
+  height: calc(100svh - var(--promptendium-header-height));
+  height: calc(100dvh - var(--promptendium-header-height));
+  min-height: calc(100svh - var(--promptendium-header-height));
+  min-height: calc(100dvh - var(--promptendium-header-height));
+  max-height: calc(100svh - var(--promptendium-header-height));
+  max-height: calc(100dvh - var(--promptendium-header-height));
+  padding: clamp(24px, 4.5vh, 48px) 0;
+  justify-content: center;
+  overflow: hidden;
+}
+
+main#top > .hero.viewport-screen .hero-grid {
+  width: 100%;
+  gap: clamp(24px, 4vw, 56px);
+}
+
+main#top > .hero.viewport-screen h1 {
+  margin-top: clamp(14px, 2.2vh, 24px);
+  font-size: clamp(46px, min(6.8vw, 8.4vh), 88px);
+}
+
+main#top > .hero.viewport-screen .hero-copy {
+  margin: clamp(14px, 2.3vh, 24px) 0 clamp(16px, 2.5vh, 28px);
+  font-size: clamp(16px, 1.8vw, 21px);
+}
+
+main#top > .hero.viewport-screen .definition-card {
+  min-height: 0;
+  padding: clamp(22px, 3vh, 30px);
+}
+
+main#top > .hero.viewport-screen .definition-card h2 {
+  margin: clamp(28px, 5vh, 54px) 0 12px;
+  font-size: clamp(34px, 4.2vw, 44px);
+}
+
+main#top > .hero.viewport-screen .viewport-next {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 10px;
+  background: rgba(247,246,242,.9);
+  border-radius: 999px;
+}
+
 .viewport-next {
   align-self: center;
   margin-top: auto;
@@ -38,6 +87,21 @@ html {
   border-radius: 6px;
 }
 
+@media (max-width: 980px) and (min-width: 651px) {
+  main#top > .hero.viewport-screen .hero-grid {
+    grid-template-columns: minmax(0, 1.18fr) minmax(240px, .82fr);
+    gap: 24px;
+  }
+
+  main#top > .hero.viewport-screen h1 {
+    font-size: clamp(44px, 7vw, 62px);
+  }
+
+  main#top > .hero.viewport-screen .definition-card {
+    min-height: 250px;
+  }
+}
+
 @media (max-width: 650px) {
   :root {
     --promptendium-header-height: 67px;
@@ -45,6 +109,49 @@ html {
 
   .viewport-next {
     padding-top: 22px;
+  }
+
+  main#top > .hero.viewport-screen {
+    padding: 24px 0 38px;
+  }
+
+  main#top > .hero.viewport-screen .hero-grid {
+    display: block;
+  }
+
+  main#top > .hero.viewport-screen h1 {
+    font-size: clamp(42px, 14vw, 56px);
+  }
+
+  main#top > .hero.viewport-screen .hero-copy {
+    font-size: 16px;
+  }
+
+  main#top > .hero.viewport-screen .definition-card {
+    display: none;
+  }
+
+  main#top > .hero.viewport-screen .search-box {
+    margin-top: 0;
+  }
+
+  main#top > .hero.viewport-screen .hero-links {
+    margin-top: 12px;
+    gap: 10px;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 651px) {
+  main#top > .hero.viewport-screen {
+    padding: 18px 0 34px;
+  }
+
+  main#top > .hero.viewport-screen .definition-card {
+    min-height: 230px;
+  }
+
+  main#top > .hero.viewport-screen .definition-card h2 {
+    margin-top: 24px;
   }
 }
 
