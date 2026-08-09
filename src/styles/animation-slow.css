@@ -1,63 +1,63 @@
 .brand {
-  transition-duration: 320ms;
+  transition-duration: 380ms;
 }
 
 .hero::before {
-  animation-duration: 26s;
+  animation-duration: 34s;
 }
 
 .eyebrow::before {
-  animation-duration: 4.8s;
-  animation-delay: 3s;
+  animation-duration: 6.2s;
+  animation-delay: 3.6s;
 }
 
 .product-pills span {
-  transition-duration: 320ms;
+  transition-duration: 380ms;
 }
 
 .product-stage {
-  animation-duration: 10s;
-  animation-delay: 3s;
+  animation-duration: 13s;
+  animation-delay: 3.6s;
 }
 
 .stage-glow {
-  animation-duration: 15s;
-  animation-delay: 2.2s;
+  animation-duration: 20s;
+  animation-delay: 2.8s;
 }
 
 .mock-search {
-  transition-duration: 320ms;
-  animation-duration: 8s;
-  animation-delay: 4s;
+  transition-duration: 380ms;
+  animation-duration: 10.5s;
+  animation-delay: 4.8s;
 }
 
 .typing-cursor {
-  animation-duration: 1.1s;
+  animation-duration: 1.3s;
 }
 
 .mock-card {
-  transition-duration: 360ms;
+  transition-duration: 420ms;
 }
 
 .mock-purple {
-  animation-duration: 9s;
-  animation-delay: 2.6s;
+  animation-duration: 12s;
+  animation-delay: 3.2s;
 }
 
 .entrance {
-  animation-duration: 980ms;
+  animation-duration: 1250ms;
 }
 
 .header-entrance {
-  animation-duration: 840ms;
+  animation-duration: 1050ms;
 }
 
-.entrance-1 { animation-delay: 180ms; }
-.entrance-2 { animation-delay: 360ms; }
-.entrance-3 { animation-delay: 550ms; }
-.entrance-4 { animation-delay: 740ms; }
-.entrance-5 { animation-delay: 930ms; }
+.entrance-1 { animation-delay: 240ms; }
+.entrance-2 { animation-delay: 480ms; }
+.entrance-3 { animation-delay: 730ms; }
+.entrance-4 { animation-delay: 980ms; }
+.entrance-5 { animation-delay: 1230ms; }
 
 .stage-entrance {
-  animation: stageIn 1200ms 500ms var(--ease-out) forwards, stageBreath 10s 3s ease-in-out infinite;
+  animation: stageIn 1550ms 650ms var(--ease-out) forwards, stageBreath 13s 3.6s ease-in-out infinite;
 }
