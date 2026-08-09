@@ -67,7 +67,9 @@ html[data-audience="everyday"] .standard-site-shell .product-stage {
 }
 
 html[data-audience="school"] .standard-site-shell .hero::before,
-html[data-audience="everyday"] .standard-site-shell .hero::before {
+html[data-audience="school"] .standard-site-shell .hero::after,
+html[data-audience="everyday"] .standard-site-shell .hero::before,
+html[data-audience="everyday"] .standard-site-shell .hero::after {
   display: none;
 }
 
