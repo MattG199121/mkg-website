@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/animation-slow.css';
 import '../styles/theme.css';
 import '../styles/audience.css';
+import '../styles/experience.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -66,79 +67,152 @@ const favicon = `${base}favicon.png`;
                 </div>
               </div>
 
-              <div class="copy-slot entrance entrance-2">
-                <div class="eyebrow level-copy" data-level="children">AI prompting made simple</div>
-                <div class="eyebrow level-copy" data-level="everyday">Practical AI prompting</div>
-                <div class="eyebrow level-copy" data-level="technical">Technical prompting reference</div>
-              </div>
+              <div class="message-stack">
+                <div class="copy-slot entrance entrance-2">
+                  <div class="eyebrow level-copy" data-level="children">AI that makes sense</div>
+                  <div class="eyebrow level-copy" data-level="everyday">Practical AI prompting</div>
+                  <div class="eyebrow level-copy" data-level="technical">Prompt engineering workspace</div>
+                </div>
 
-              <h1 id="page-title" class="entrance entrance-3">Less guessing.<br />Better prompting.</h1>
+                <div class="copy-slot entrance entrance-3">
+                  <h1 id="page-title" class="level-copy" data-level="children">Ask better.<br />Learn faster.</h1>
+                  <h1 class="level-copy" data-level="everyday">Less guessing.<br />Better prompting.</h1>
+                  <h1 class="level-copy" data-level="technical">Prompt with precision.<br />Control the output.</h1>
+                </div>
 
-              <div class="copy-slot entrance entrance-4">
-                <p class="lede level-copy" data-level="children">
-                  Simple prompts and easy explanations to help younger users get better results from AI.
-                </p>
-                <p class="lede level-copy" data-level="everyday">
-                  Everything you need to get more from AI — without the jargon.
-                </p>
-                <p class="lede level-copy" data-level="technical">
-                  Structured prompting, model behaviour and practical techniques for more controlled AI output.
-                </p>
-              </div>
+                <div class="copy-slot entrance entrance-4">
+                  <p class="lede level-copy" data-level="children">
+                    Friendly prompts, clear explanations and useful ideas for school, creativity and learning.
+                  </p>
+                  <p class="lede level-copy" data-level="everyday">
+                    Everything you need to get more from AI — without the jargon.
+                  </p>
+                  <p class="lede level-copy" data-level="technical">
+                    Structured prompting, constraints, schemas and model-aware techniques for repeatable results.
+                  </p>
+                </div>
 
-              <div class="product-pills entrance entrance-5" aria-label="Promptendium products">
-                <span>Prompt Dictionary</span>
-                <span>Practical Guides</span>
-                <span>Prompt Generator</span>
+                <div class="product-pills entrance entrance-5" aria-label="Promptendium tools">
+                  <span class="level-copy" data-level="children">Learn with AI</span>
+                  <span class="level-copy" data-level="children">Create something</span>
+                  <span class="level-copy" data-level="children">Build a prompt</span>
+
+                  <span class="level-copy" data-level="everyday">Prompt Dictionary</span>
+                  <span class="level-copy" data-level="everyday">Practical Guides</span>
+                  <span class="level-copy" data-level="everyday">Prompt Generator</span>
+
+                  <span class="level-copy" data-level="technical">Prompt patterns</span>
+                  <span class="level-copy" data-level="technical">Model behaviour</span>
+                  <span class="level-copy" data-level="technical">Schema builder</span>
+                </div>
               </div>
 
               <div class="copy-slot entrance entrance-5">
-                <div class="hero-note level-copy" data-level="children">Simple language. Clear examples. Easy to try.</div>
+                <div class="hero-note level-copy" data-level="children">Simple language. Safe examples. Easy to explore.</div>
                 <div class="hero-note level-copy" data-level="everyday">Clear explanations. Practical prompts. No hype.</div>
-                <div class="hero-note level-copy" data-level="technical">Precise methods. Model-aware guidance. More control.</div>
+                <div class="hero-note level-copy" data-level="technical">Precise methods. Explicit constraints. Reproducible outputs.</div>
               </div>
             </div>
 
-            <div class="product-stage entrance stage-entrance" aria-label="Promptendium product preview">
+            <div class="product-stage entrance stage-entrance" aria-label="Promptendium experience preview">
               <div class="stage-glow" aria-hidden="true"></div>
-              <div class="mock-window">
-                <div class="mock-top" aria-hidden="true">
-                  <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+
+              <div class="level-scene child-scene" data-scene="children">
+                <div class="child-topline">
+                  <span class="child-badge">Promptendium for learners</span>
+                  <span class="child-stars" aria-hidden="true">✦ ★ ✦</span>
                 </div>
-
-                <div class="mock-content">
-                  <div class="mock-label">Promptendium</div>
-                  <div class="mock-title level-copy" data-level="children">AI prompts made easier.</div>
-                  <div class="mock-title level-copy" data-level="everyday">Find the right prompt faster.</div>
-                  <div class="mock-title level-copy" data-level="technical">Prompt with more control.</div>
-
-                  <div class="mock-search" aria-label="Animated Promptendium search example">
-                    <span class="mock-query"><span id="mockQuery">Search prompts, guides and terms…</span><span class="typing-cursor" aria-hidden="true"></span></span>
-                    <span class="mock-key">⌘ K</span>
+                <h2 class="child-heading">What would you like to discover?</h2>
+                <p class="child-sub">Turn a question, homework topic or idea into a better prompt — then understand the answer.</p>
+                <div class="child-search">
+                  <span class="child-search-icon" aria-hidden="true">✦</span>
+                  <span class="child-query dynamic-query" data-query-level="children">Explain photosynthesis like I’m 10</span>
+                  <span class="typing-cursor" aria-hidden="true"></span>
+                </div>
+                <div class="child-cards">
+                  <div class="child-card">
+                    <div class="child-icon">?</div>
+                    <strong>Ask</strong>
+                    <span>Turn a question into a clear AI prompt.</span>
                   </div>
+                  <div class="child-card">
+                    <div class="child-icon">★</div>
+                    <strong>Learn</strong>
+                    <span>Get simple explanations with examples.</span>
+                  </div>
+                  <div class="child-card">
+                    <div class="child-icon">✦</div>
+                    <strong>Create</strong>
+                    <span>Stories, quizzes, ideas and projects.</span>
+                  </div>
+                </div>
+              </div>
 
-                  <div class="mock-cards">
-                    <div class="mock-card dark">
-                      <strong>Prompt Dictionary</strong>
-                      <span>Browse practical prompts by task, category or letter.</span>
-                      <div class="mock-purple"></div>
+              <div class="level-scene everyday-scene" data-scene="everyday">
+                <div class="everyday-top" aria-hidden="true">
+                  <span class="everyday-dot"></span><span class="everyday-dot"></span><span class="everyday-dot"></span>
+                </div>
+                <div class="everyday-label">Promptendium</div>
+                <h2 class="everyday-title">Find the right prompt faster.</h2>
+                <div class="everyday-search">
+                  <span class="everyday-query dynamic-query" data-query-level="everyday">Search prompts, guides and terms…</span>
+                  <span class="typing-cursor" aria-hidden="true"></span>
+                  <span class="everyday-key">⌘ K</span>
+                </div>
+                <div class="everyday-cards">
+                  <div class="everyday-card primary">
+                    <strong>Prompt Dictionary</strong>
+                    <span>Browse practical prompts by task, category or letter.</span>
+                    <div class="everyday-purple"></div>
+                  </div>
+                  <div class="everyday-card">
+                    <strong>Prompting Guides</strong>
+                    <span>Learn the ideas that make prompts easier to write and improve.</span>
+                  </div>
+                  <div class="everyday-card">
+                    <strong>AI terminology</strong>
+                    <span>Plain-English definitions for the terms you actually see.</span>
+                  </div>
+                  <div class="everyday-card">
+                    <strong>Prompt Generator</strong>
+                    <span>A guided tool for building prompts around your task.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="level-scene technical-scene" data-scene="technical">
+                <div class="tech-toolbar">
+                  <span class="tech-path">promptendium / workspace / prompt</span>
+                  <span class="tech-status">validated</span>
+                </div>
+                <div class="tech-body">
+                  <div class="tech-editor">
+                    <div class="tech-kicker">Prompt specification</div>
+                    <h2 class="tech-heading">Design for predictable output.</h2>
+                    <div class="tech-query">
+                      <span class="dynamic-query" data-query-level="technical">Create a constrained JSON extraction prompt</span><span class="typing-cursor" aria-hidden="true"></span>
                     </div>
-
-                    <div class="mock-card">
-                      <strong>Prompting Guides</strong>
-                      <span>Learn the ideas that make prompts easier to write and improve.</span>
-                    </div>
-
-                    <div class="mock-card">
-                      <strong>AI terminology</strong>
-                      <span>Plain-English definitions for the terms you actually see.</span>
-                    </div>
-
-                    <div class="mock-card">
-                      <strong>Prompt Generator</strong>
-                      <span>A guided tool for building prompts around your task.</span>
+                    <div class="tech-code" aria-hidden="true">
+                      <div class="tech-line"><span class="tech-ln">01</span><span><span class="tech-keyword">role</span>: <span class="tech-string">"extractor"</span></span></div>
+                      <div class="tech-line"><span class="tech-ln">02</span><span><span class="tech-keyword">output</span>: <span class="tech-string">"json_schema"</span></span></div>
+                      <div class="tech-line"><span class="tech-ln">03</span><span><span class="tech-keyword">temperature</span>: <span class="tech-value">0.2</span></span></div>
+                      <div class="tech-line"><span class="tech-ln">04</span><span><span class="tech-keyword">constraints</span>: <span class="tech-dim">[strict, cited]</span></span></div>
+                      <div class="tech-line"><span class="tech-ln">05</span><span><span class="tech-keyword">fallback</span>: <span class="tech-string">"insufficient_context"</span></span></div>
                     </div>
                   </div>
+                  <aside class="tech-panel">
+                    <div class="tech-panel-title">Run profile</div>
+                    <div class="tech-metric"><span>Mode</span><strong>Structured</strong></div>
+                    <div class="tech-metric"><span>Schema</span><strong>Strict</strong></div>
+                    <div class="tech-metric"><span>Examples</span><strong>2-shot</strong></div>
+                    <div class="tech-metric"><span>Risk flags</span><strong>Enabled</strong></div>
+                    <div class="tech-schema">
+                      <div class="tech-schema-title">Output contract</div>
+                      <div class="tech-schema-row"><span>answer</span><strong>string</strong></div>
+                      <div class="tech-schema-row"><span>confidence</span><strong>number</strong></div>
+                      <div class="tech-schema-row"><span>sources</span><strong>array</strong></div>
+                    </div>
+                  </aside>
                 </div>
               </div>
             </div>
@@ -168,11 +242,11 @@ const favicon = `${base}favicon.png`;
           }
 
           if (animate) {
-            document.querySelectorAll(`.level-copy[data-level="${nextLevel}"]`).forEach((node) => {
+            document.querySelectorAll(`.level-copy[data-level="${nextLevel}"], .level-scene[data-scene="${nextLevel}"]`).forEach((node) => {
               node.classList.remove('audience-transition');
               void node.offsetWidth;
               node.classList.add('audience-transition');
-              window.setTimeout(() => node.classList.remove('audience-transition'), 700);
+              window.setTimeout(() => node.classList.remove('audience-transition'), 900);
             });
           }
 
@@ -219,42 +293,41 @@ const favicon = `${base}favicon.png`;
 
     <script is:inline>
       (() => {
-        const query = document.getElementById('mockQuery');
-        if (!query) return;
-
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const phrasesByLevel = {
           children: [
-            'Search simple prompts and guides…',
-            'Explain photosynthesis simply',
-            'Help me plan a school project',
-            'Create a quiz about volcanoes'
+            'Explain photosynthesis like I’m 10',
+            'Help me make a volcano project',
+            'Quiz me on the solar system',
+            'Write a funny story about a robot'
           ],
           everyday: [
             'Search prompts, guides and terms…',
             'Write a professional follow-up email',
-            'Explain context windows simply',
+            'Summarise these meeting notes',
             'Create a project planning prompt'
           ],
           technical: [
-            'Search advanced prompting techniques…',
-            'Design a structured JSON output prompt',
-            'Compare retrieval strategies for RAG',
-            'Create a constrained system prompt'
+            'Create a constrained JSON extraction prompt',
+            'Design a retrieval-grounded system prompt',
+            'Compare few-shot prompting strategies',
+            'Specify a strict structured output contract'
           ]
         };
 
         let timer = null;
+        let query = null;
+        let phrases = phrasesByLevel.everyday;
         let phraseIndex = 0;
         let charIndex = 0;
         let deleting = true;
-        let phrases = phrasesByLevel.everyday;
 
         const schedule = (fn, delay) => {
           timer = window.setTimeout(fn, delay);
         };
 
         const tick = () => {
+          if (!query) return;
           const phrase = phrases[phraseIndex];
 
           if (deleting) {
@@ -264,11 +337,11 @@ const favicon = `${base}favicon.png`;
             if (charIndex === 0) {
               deleting = false;
               phraseIndex = (phraseIndex + 1) % phrases.length;
-              schedule(tick, 700);
+              schedule(tick, 850);
               return;
             }
 
-            schedule(tick, 58);
+            schedule(tick, 65);
             return;
           }
 
@@ -278,22 +351,23 @@ const favicon = `${base}favicon.png`;
 
           if (charIndex === nextPhrase.length) {
             deleting = true;
-            schedule(tick, 3400);
+            schedule(tick, 3900);
             return;
           }
 
-          schedule(tick, 95);
+          schedule(tick, 105);
         };
 
         const restart = (level) => {
           if (timer) window.clearTimeout(timer);
           phrases = phrasesByLevel[level] || phrasesByLevel.everyday;
+          query = document.querySelector(`.dynamic-query[data-query-level="${level}"]`);
           phraseIndex = 0;
           charIndex = phrases[0].length;
           deleting = true;
-          query.textContent = phrases[0];
+          if (query) query.textContent = phrases[0];
 
-          if (!reduceMotion) schedule(tick, 4000);
+          if (!reduceMotion && query) schedule(tick, 4200);
         };
 
         restart(document.documentElement.dataset.level || 'everyday');
