@@ -4,25 +4,54 @@ interface Props {
 }
 
 const { goal = 'learn' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const childStyles = `${base}styles/child-experience.css`;
+const childScript = `${base}scripts/child-experience.js`;
 ---
 
-<link rel="stylesheet" href="/styles/child-experience.css" />
+<link rel="stylesheet" href={childStyles} />
 
 <section class="child-experience" data-goal={goal} aria-labelledby="child-title">
   <div class="child-experience__orb child-experience__orb--one" aria-hidden="true"></div>
   <div class="child-experience__orb child-experience__orb--two" aria-hidden="true"></div>
 
   <header class="child-topbar">
-    <a class="child-brand" href="/" aria-label="Promptendium home">
+    <a class="child-brand" href={base} aria-label="Promptendium home">
       <span class="child-brand__mark" aria-hidden="true">P</span>
       <span>Promptendium</span>
     </a>
 
-    <div class="child-mode-chip" aria-label="Young explorers area">
+    <button class="child-mode-chip" type="button" data-child-profile-trigger aria-label="Change Promptendium experience" aria-haspopup="dialog" aria-expanded="false">
       <span class="child-mode-chip__dot" aria-hidden="true"></span>
       For young explorers
-    </div>
+    </button>
   </header>
+
+  <div class="child-profile-popover" data-child-profile-popover hidden role="dialog" aria-label="Change Promptendium experience">
+    <p class="child-profile-popover__title">Change your Promptendium experience</p>
+
+    <div class="child-profile-popover__group">
+      <span class="child-profile-popover__label">I am…</span>
+      <div class="child-profile-popover__options">
+        <button type="button" data-child-audience-target="school" aria-pressed="true">School student</button>
+        <button type="button" data-child-audience-target="student" aria-pressed="false">College / University</button>
+        <button type="button" data-child-audience-target="everyday" aria-pressed="false">Everyday user</button>
+        <button type="button" data-child-audience-target="technical" aria-pressed="false">Technical user</button>
+      </div>
+    </div>
+
+    <div class="child-profile-popover__group">
+      <span class="child-profile-popover__label">I want to…</span>
+      <div class="child-profile-popover__options">
+        <button type="button" data-child-goal-target="learn" aria-pressed="false">Learn</button>
+        <button type="button" data-child-goal-target="save" aria-pressed="false">Save time</button>
+        <button type="button" data-child-goal-target="create" aria-pressed="false">Create</button>
+        <button type="button" data-child-goal-target="explore" aria-pressed="false">Explore</button>
+      </div>
+    </div>
+
+    <button class="child-profile-popover__theme" type="button" data-child-theme-toggle>Switch light / dark mode</button>
+  </div>
 
   <div class="child-layout">
     <div class="child-main">
@@ -137,4 +166,13 @@ const { goal = 'learn' } = Astro.props;
   </div>
 </section>
 
-<script src="/scripts/child-experience.js" is:inline></script>
+<script is:inline>
+  (() => {
+    const selectedGoal = document.documentElement.dataset.goal;
+    if (!selectedGoal) return;
+    document.querySelectorAll('.child-experience').forEach((node) => {
+      node.dataset.goal = selectedGoal;
+    });
+  })();
+</script>
+<script is:inline src={childScript}></script>
