@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
 const mark = `${base}brand/promptendium-mark.webp`;
 const favicon = `${base}favicon.png`;
@@ -19,7 +19,7 @@ const favicon = `${base}favicon.png`;
   <body>
     <header class="site-header">
       <div class="wrap header-inner">
-        <a class="brand" href={`${base}`} aria-label="Promptendium home">
+        <a class="brand" href={base} aria-label="Promptendium home">
           <img src={logo} alt="Promptendium — The reference for better AI prompts." />
         </a>
         <nav class="nav" aria-label="Primary navigation">
