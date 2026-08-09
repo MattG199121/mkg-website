@@ -66,6 +66,11 @@ html[data-audience="everyday"] .standard-site-shell .product-stage {
   pointer-events: none;
 }
 
+html[data-audience="school"] .standard-site-shell .hero::before,
+html[data-audience="everyday"] .standard-site-shell .hero::before {
+  display: none;
+}
+
 /* Child and Everyday are both mounted inside the same technical shell so the
  * homepage itself does not need separate duplicated control bars. */
 .child-experience-shell > .child-experience,
@@ -110,7 +115,7 @@ html[data-audience="everyday"] .child-experience-shell > .embedded-everyday-expe
 }
 
 .child-experience-shell .child-layout {
-  width: min(calc(100% - 0px), 1480px);
+  width: min(100%, 1480px);
   height: min(66vh, 610px);
   min-height: 390px;
   margin: auto;
