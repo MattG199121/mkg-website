@@ -1,10 +1,12 @@
 ---
+import ChildExperience from '../components/ChildExperience.astro';
 import '../styles/global.css';
 import '../styles/animation-slow.css';
 import '../styles/theme.css';
 import '../styles/audience.css';
 import '../styles/experience.css';
 import '../styles/personalisation.css';
+import '../styles/child-integration.css';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const logo = `${base}brand/promptendium-logo.webp`;
@@ -56,179 +58,185 @@ const favicon = `${base}favicon.png`;
     </script>
   </head>
   <body>
-    <div class="page-shell">
-      <header class="site-header entrance header-entrance">
-        <div class="wrap header-inner">
-          <a class="brand" href={base} aria-label="Promptendium home">
-            <img src={logo} alt="Promptendium — The reference for better AI prompts." />
-          </a>
+    <div class="child-experience-shell">
+      <ChildExperience goal="save" />
+    </div>
 
-          <div class="header-actions">
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
-              <span class="theme-toggle-track" aria-hidden="true">
-                <span class="theme-toggle-sun">☀</span>
-                <span class="theme-toggle-moon">☾</span>
-              </span>
-              <span class="theme-toggle-thumb" aria-hidden="true"></span>
-            </button>
-          </div>
-        </div>
-      </header>
+    <div class="standard-site-shell">
+      <div class="page-shell">
+        <header class="site-header entrance header-entrance">
+          <div class="wrap header-inner">
+            <a class="brand" href={base} aria-label="Promptendium home">
+              <img src={logo} alt="Promptendium — The reference for better AI prompts." />
+            </a>
 
-      <main class="home-screen">
-        <section class="hero" aria-labelledby="page-title">
-          <div class="wrap hero-grid">
-            <div class="hero-copy">
-              <div class="personalisation-panel entrance entrance-1" aria-label="Personalise Promptendium">
-                <div class="selector-row">
-                  <span class="selector-label">I am…</span>
-                  <div class="audience-switcher" role="group" aria-label="Choose who you are">
-                    <button class="audience-option" type="button" data-audience="school" aria-pressed="false">School student</button>
-                    <button class="audience-option" type="button" data-audience="student" aria-pressed="false">College / University</button>
-                    <button class="audience-option" type="button" data-audience="everyday" aria-pressed="true">Everyday user</button>
-                    <button class="audience-option" type="button" data-audience="technical" aria-pressed="false">Technical user</button>
-                  </div>
-                </div>
-
-                <div class="selector-row">
-                  <span class="selector-label">I want to…</span>
-                  <div class="goal-switcher" role="group" aria-label="Choose what you want to do">
-                    <button class="goal-option" type="button" data-goal="learn" aria-pressed="false">Learn</button>
-                    <button class="goal-option" type="button" data-goal="save" aria-pressed="true">Save time</button>
-                    <button class="goal-option" type="button" data-goal="create" aria-pressed="false">Create</button>
-                    <button class="goal-option" type="button" data-goal="explore" aria-pressed="false">Explore</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="message-stack personalised-copy">
-                <div class="eyebrow entrance entrance-2" id="dynamicEyebrow">Everyday AI, made useful</div>
-                <h1 id="page-title" class="entrance entrance-3">Less guessing.<br />Better prompting.</h1>
-                <p class="lede entrance entrance-4" id="dynamicLede">
-                  Cut down the time spent on emails, planning, admin and repetitive tasks with prompts built for real life.
-                </p>
-                <div class="product-pills entrance entrance-5" aria-label="Recommended Promptendium tools">
-                  <span id="toolOne">Email prompts</span>
-                  <span id="toolTwo">Planning help</span>
-                  <span id="toolThree">Quick summaries</span>
-                </div>
-              </div>
-
-              <div class="hero-note personalised-copy entrance entrance-5" id="dynamicNote">Less admin. More time for everything else.</div>
-            </div>
-
-            <div class="product-stage entrance stage-entrance" aria-label="Personalised Promptendium preview">
-              <div class="stage-glow" aria-hidden="true"></div>
-
-              <div class="level-scene child-scene" data-scene="children">
-                <div class="child-topline">
-                  <span class="child-badge" id="childBadge">Promptendium for school</span>
-                  <span class="child-stars" aria-hidden="true">✦ ★ ✦</span>
-                </div>
-                <h2 class="child-heading" id="childHeading">Get schoolwork moving faster.</h2>
-                <p class="child-sub" id="childSub">Plan homework, turn notes into revision material and get unstuck without wasting time.</p>
-                <div class="child-search">
-                  <span class="child-search-icon" aria-hidden="true">✦</span>
-                  <span class="child-query dynamic-query" data-query-level="children">Turn these notes into revision cards</span>
-                  <span class="typing-cursor" aria-hidden="true"></span>
-                </div>
-                <div class="child-cards">
-                  <div class="child-card">
-                    <div class="child-icon">✓</div>
-                    <strong id="childCardOneTitle">Plan</strong>
-                    <span id="childCardOneText">Break schoolwork into clear next steps.</span>
-                  </div>
-                  <div class="child-card">
-                    <div class="child-icon">★</div>
-                    <strong id="childCardTwoTitle">Revise</strong>
-                    <span id="childCardTwoText">Make quizzes, cards and study plans.</span>
-                  </div>
-                  <div class="child-card">
-                    <div class="child-icon">✦</div>
-                    <strong id="childCardThreeTitle">Finish</strong>
-                    <span id="childCardThreeText">Move from stuck to a useful first draft.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="level-scene everyday-scene" data-scene="everyday">
-                <div class="everyday-top" aria-hidden="true">
-                  <span class="everyday-dot"></span><span class="everyday-dot"></span><span class="everyday-dot"></span>
-                </div>
-                <div class="everyday-label" id="everydayLabel">Promptendium · Save time</div>
-                <h2 class="everyday-title" id="everydayTitle">Get useful work done faster.</h2>
-                <div class="everyday-search">
-                  <span class="everyday-query dynamic-query" data-query-level="everyday">Summarise these meeting notes into actions</span>
-                  <span class="typing-cursor" aria-hidden="true"></span>
-                  <span class="everyday-key">⌘ K</span>
-                </div>
-                <div class="everyday-cards">
-                  <div class="everyday-card primary">
-                    <strong id="everydayCardOneTitle">Quick prompts</strong>
-                    <span id="everydayCardOneText">Start from a proven prompt instead of a blank box.</span>
-                    <div class="everyday-purple"></div>
-                  </div>
-                  <div class="everyday-card">
-                    <strong id="everydayCardTwoTitle">Planning</strong>
-                    <span id="everydayCardTwoText">Turn messy tasks into useful plans and next steps.</span>
-                  </div>
-                  <div class="everyday-card">
-                    <strong id="everydayCardThreeTitle">Summaries</strong>
-                    <span id="everydayCardThreeText">Reduce long notes and documents to what matters.</span>
-                  </div>
-                  <div class="everyday-card">
-                    <strong id="everydayCardFourTitle">Prompt Generator</strong>
-                    <span id="everydayCardFourText">Build a stronger prompt around the job you need done.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="level-scene technical-scene" data-scene="technical">
-                <div class="tech-toolbar">
-                  <span class="tech-path" id="techPath">promptendium / productivity / reusable_prompt</span>
-                  <span class="tech-status">validated</span>
-                </div>
-                <div class="tech-body">
-                  <div class="tech-editor">
-                    <div class="tech-kicker" id="techKicker">Reusable prompt systems</div>
-                    <h2 class="tech-heading" id="techHeading">Reduce repeated prompt work.</h2>
-                    <div class="tech-query">
-                      <span class="dynamic-query" data-query-level="technical">Create a reusable extraction prompt with strict output</span><span class="typing-cursor" aria-hidden="true"></span>
-                    </div>
-                    <div class="tech-code" aria-hidden="true">
-                      <div class="tech-line"><span class="tech-ln">01</span><span><span class="tech-keyword">role</span>: <span class="tech-string">"extractor"</span></span></div>
-                      <div class="tech-line"><span class="tech-ln">02</span><span><span class="tech-keyword">output</span>: <span class="tech-string">"json_schema"</span></span></div>
-                      <div class="tech-line"><span class="tech-ln">03</span><span><span class="tech-keyword">temperature</span>: <span class="tech-value">0.2</span></span></div>
-                      <div class="tech-line"><span class="tech-ln">04</span><span><span class="tech-keyword">constraints</span>: <span class="tech-dim">[strict, cited]</span></span></div>
-                      <div class="tech-line"><span class="tech-ln">05</span><span><span class="tech-keyword">fallback</span>: <span class="tech-string">"insufficient_context"</span></span></div>
-                    </div>
-                  </div>
-                  <aside class="tech-panel">
-                    <div class="tech-panel-title">Run profile</div>
-                    <div class="tech-metric"><span>Mode</span><strong>Structured</strong></div>
-                    <div class="tech-metric"><span>Schema</span><strong>Strict</strong></div>
-                    <div class="tech-metric"><span>Examples</span><strong>2-shot</strong></div>
-                    <div class="tech-metric"><span>Risk flags</span><strong>Enabled</strong></div>
-                    <div class="tech-schema">
-                      <div class="tech-schema-title">Output contract</div>
-                      <div class="tech-schema-row"><span>answer</span><strong>string</strong></div>
-                      <div class="tech-schema-row"><span>confidence</span><strong>number</strong></div>
-                      <div class="tech-schema-row"><span>sources</span><strong>array</strong></div>
-                    </div>
-                  </aside>
-                </div>
-              </div>
+            <div class="header-actions">
+              <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+                <span class="theme-toggle-track" aria-hidden="true">
+                  <span class="theme-toggle-sun">☀</span>
+                  <span class="theme-toggle-moon">☾</span>
+                </span>
+                <span class="theme-toggle-thumb" aria-hidden="true"></span>
+              </button>
             </div>
           </div>
-        </section>
-      </main>
+        </header>
+
+        <main class="home-screen">
+          <section class="hero" aria-labelledby="page-title">
+            <div class="wrap hero-grid">
+              <div class="hero-copy">
+                <div class="personalisation-panel entrance entrance-1" aria-label="Personalise Promptendium">
+                  <div class="selector-row">
+                    <span class="selector-label">I am…</span>
+                    <div class="audience-switcher" role="group" aria-label="Choose who you are">
+                      <button class="audience-option" type="button" data-audience="school" aria-pressed="false">School student</button>
+                      <button class="audience-option" type="button" data-audience="student" aria-pressed="false">College / University</button>
+                      <button class="audience-option" type="button" data-audience="everyday" aria-pressed="true">Everyday user</button>
+                      <button class="audience-option" type="button" data-audience="technical" aria-pressed="false">Technical user</button>
+                    </div>
+                  </div>
+
+                  <div class="selector-row">
+                    <span class="selector-label">I want to…</span>
+                    <div class="goal-switcher" role="group" aria-label="Choose what you want to do">
+                      <button class="goal-option" type="button" data-goal="learn" aria-pressed="false">Learn</button>
+                      <button class="goal-option" type="button" data-goal="save" aria-pressed="true">Save time</button>
+                      <button class="goal-option" type="button" data-goal="create" aria-pressed="false">Create</button>
+                      <button class="goal-option" type="button" data-goal="explore" aria-pressed="false">Explore</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="message-stack personalised-copy">
+                  <div class="eyebrow entrance entrance-2" id="dynamicEyebrow">Everyday AI, made useful</div>
+                  <h1 id="page-title" class="entrance entrance-3">Less guessing.<br />Better prompting.</h1>
+                  <p class="lede entrance entrance-4" id="dynamicLede">
+                    Cut down the time spent on emails, planning, admin and repetitive tasks with prompts built for real life.
+                  </p>
+                  <div class="product-pills entrance entrance-5" aria-label="Recommended Promptendium tools">
+                    <span id="toolOne">Email prompts</span>
+                    <span id="toolTwo">Planning help</span>
+                    <span id="toolThree">Quick summaries</span>
+                  </div>
+                </div>
+
+                <div class="hero-note personalised-copy entrance entrance-5" id="dynamicNote">Less admin. More time for everything else.</div>
+              </div>
+
+              <div class="product-stage entrance stage-entrance" aria-label="Personalised Promptendium preview">
+                <div class="stage-glow" aria-hidden="true"></div>
+
+                <div class="level-scene child-scene" data-scene="children">
+                  <div class="child-topline">
+                    <span class="child-badge" id="childBadge">Promptendium for school</span>
+                    <span class="child-stars" aria-hidden="true">✦ ★ ✦</span>
+                  </div>
+                  <h2 class="child-heading" id="childHeading">Get schoolwork moving faster.</h2>
+                  <p class="child-sub" id="childSub">Plan homework, turn notes into revision material and get unstuck without wasting time.</p>
+                  <div class="child-search">
+                    <span class="child-search-icon" aria-hidden="true">✦</span>
+                    <span class="child-query dynamic-query" data-query-level="children">Turn these notes into revision cards</span>
+                    <span class="typing-cursor" aria-hidden="true"></span>
+                  </div>
+                  <div class="child-cards">
+                    <div class="child-card">
+                      <div class="child-icon">✓</div>
+                      <strong id="childCardOneTitle">Plan</strong>
+                      <span id="childCardOneText">Break schoolwork into clear next steps.</span>
+                    </div>
+                    <div class="child-card">
+                      <div class="child-icon">★</div>
+                      <strong id="childCardTwoTitle">Revise</strong>
+                      <span id="childCardTwoText">Make quizzes, cards and study plans.</span>
+                    </div>
+                    <div class="child-card">
+                      <div class="child-icon">✦</div>
+                      <strong id="childCardThreeTitle">Finish</strong>
+                      <span id="childCardThreeText">Move from stuck to a useful first draft.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="level-scene everyday-scene" data-scene="everyday">
+                  <div class="everyday-top" aria-hidden="true">
+                    <span class="everyday-dot"></span><span class="everyday-dot"></span><span class="everyday-dot"></span>
+                  </div>
+                  <div class="everyday-label" id="everydayLabel">Promptendium · Save time</div>
+                  <h2 class="everyday-title" id="everydayTitle">Get useful work done faster.</h2>
+                  <div class="everyday-search">
+                    <span class="everyday-query dynamic-query" data-query-level="everyday">Summarise these meeting notes into actions</span>
+                    <span class="typing-cursor" aria-hidden="true"></span>
+                    <span class="everyday-key">⌘ K</span>
+                  </div>
+                  <div class="everyday-cards">
+                    <div class="everyday-card primary">
+                      <strong id="everydayCardOneTitle">Quick prompts</strong>
+                      <span id="everydayCardOneText">Start from a proven prompt instead of a blank box.</span>
+                      <div class="everyday-purple"></div>
+                    </div>
+                    <div class="everyday-card">
+                      <strong id="everydayCardTwoTitle">Planning</strong>
+                      <span id="everydayCardTwoText">Turn messy tasks into useful plans and next steps.</span>
+                    </div>
+                    <div class="everyday-card">
+                      <strong id="everydayCardThreeTitle">Summaries</strong>
+                      <span id="everydayCardThreeText">Reduce long notes and documents to what matters.</span>
+                    </div>
+                    <div class="everyday-card">
+                      <strong id="everydayCardFourTitle">Prompt Generator</strong>
+                      <span id="everydayCardFourText">Build a stronger prompt around the job you need done.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="level-scene technical-scene" data-scene="technical">
+                  <div class="tech-toolbar">
+                    <span class="tech-path" id="techPath">promptendium / productivity / reusable_prompt</span>
+                    <span class="tech-status">validated</span>
+                  </div>
+                  <div class="tech-body">
+                    <div class="tech-editor">
+                      <div class="tech-kicker" id="techKicker">Reusable prompt systems</div>
+                      <h2 class="tech-heading" id="techHeading">Reduce repeated prompt work.</h2>
+                      <div class="tech-query">
+                        <span class="dynamic-query" data-query-level="technical">Create a reusable extraction prompt with strict output</span><span class="typing-cursor" aria-hidden="true"></span>
+                      </div>
+                      <div class="tech-code" aria-hidden="true">
+                        <div class="tech-line"><span class="tech-ln">01</span><span><span class="tech-keyword">role</span>: <span class="tech-string">"extractor"</span></span></div>
+                        <div class="tech-line"><span class="tech-ln">02</span><span><span class="tech-keyword">output</span>: <span class="tech-string">"json_schema"</span></span></div>
+                        <div class="tech-line"><span class="tech-ln">03</span><span><span class="tech-keyword">temperature</span>: <span class="tech-value">0.2</span></span></div>
+                        <div class="tech-line"><span class="tech-ln">04</span><span><span class="tech-keyword">constraints</span>: <span class="tech-dim">[strict, cited]</span></span></div>
+                        <div class="tech-line"><span class="tech-ln">05</span><span><span class="tech-keyword">fallback</span>: <span class="tech-string">"insufficient_context"</span></span></div>
+                      </div>
+                    </div>
+                    <aside class="tech-panel">
+                      <div class="tech-panel-title">Run profile</div>
+                      <div class="tech-metric"><span>Mode</span><strong>Structured</strong></div>
+                      <div class="tech-metric"><span>Schema</span><strong>Strict</strong></div>
+                      <div class="tech-metric"><span>Examples</span><strong>2-shot</strong></div>
+                      <div class="tech-metric"><span>Risk flags</span><strong>Enabled</strong></div>
+                      <div class="tech-schema">
+                        <div class="tech-schema-title">Output contract</div>
+                        <div class="tech-schema-row"><span>answer</span><strong>string</strong></div>
+                        <div class="tech-schema-row"><span>confidence</span><strong>number</strong></div>
+                        <div class="tech-schema-row"><span>sources</span><strong>array</strong></div>
+                      </div>
+                    </aside>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
 
     <script is:inline>
       (() => {
         const root = document.documentElement;
-        const audienceButtons = Array.from(document.querySelectorAll('[data-audience]'));
-        const goalButtons = Array.from(document.querySelectorAll('[data-goal]'));
+        const audienceButtons = Array.from(document.querySelectorAll('.standard-site-shell [data-audience]'));
+        const goalButtons = Array.from(document.querySelectorAll('.standard-site-shell [data-goal]'));
         const validAudiences = ['school', 'student', 'everyday', 'technical'];
         const validGoals = ['learn', 'save', 'create', 'explore'];
 
